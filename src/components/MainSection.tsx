@@ -1,9 +1,8 @@
-// components/MainSection.tsx
-"use client"; // Important: Framer Motion requires client component
+"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
-import { FaRobot, FaRocket, FaLock, FaServer } from "react-icons/fa";
+import { FaRocket, FaLock } from "react-icons/fa";
 
 const stats = [
   { number: "250+", label: "Projects Completed" },
@@ -12,118 +11,168 @@ const stats = [
 ];
 
 const features = [
-  { label: "AI Powered", icon: <FaRobot size={24} /> },
-  { label: "Fast Delivery", icon: <FaRocket size={24} /> },
-  { label: "Secure", icon: <FaLock size={24} /> },
-  { label: "99% Uptime", icon: <FaServer size={24} /> },
+  { type: "text", title: "AI", subtitle: "Powered" },
+  { type: "icon", label: "Fast Delivery", icon: <FaRocket size={22} /> },
+  { type: "icon", label: "Secure", icon: <FaLock size={22} /> },
+  { type: "text", title: "99%", subtitle: "Uptime" },
 ];
 
-// Positions around the central circle
-const positions = [
-  { x: 0, y: -150 }, // top
-  { x: 150, y: 0 },  // right
-  { x: 0, y: 150 },  // bottom
-  { x: -150, y: 0 }, // left
+const desktopPositions = [
+  { x: -140, y: -160 },
+  { x: 180, y: -70 },
+  { x: 130, y: 170 },
+  { x: -180, y: 120 },
 ];
 
 const MainSection = () => {
   return (
-    <section className="w-full min-h-screen relative overflow-hidden flex items-center justify-center">
-      {/* Background Glass */}
-      <div className="absolute inset-0 bg-blue-600/20 backdrop-blur-[500px] -z-20"></div>
+    <section className="relative w-full min-h-3.5 overflow-hidden flex items-center justify-center px-4 sm:px-6">
+      
+      {/* Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-30"
+        style={{ backgroundImage: "url('/bg.png')" }}
+      />
+      <div className="absolute inset-0 backdrop-blur-[30px] -z-20" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-24 flex flex-col lg:flex-row items-center gap-12">
-        
-        {/* Left Side - Texts */}
+      <div className="max-w-7xl w-full py-24 flex flex-col lg:flex-row items-center gap-16">
+
+        {/* LEFT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
+          initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          className="flex-1"
+          transition={{ duration: 0.8 }}
+          className="flex-1 text-center lg:text-left"
         >
-          <div className="mb-4 text-sm text-blue-400 font-medium">
+          <span className="
+            inline-flex items-center
+            px-5 py-1
+            text-sm font-medium text-blue-400
+            rounded-full
+            bg-blue-500/10
+            border border-blue-400/30
+            shadow-[0_0_15px_rgba(59,130,246,0.5)]
+          ">
             Leading Web Development Company
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            We Build <span className="text-blue-500">Digital</span> <br />
-            Experiences That <span className="text-blue-500">Matter</span>
+          </span>
+
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mt-6 mb-6 leading-tight">
+            We Build <span className="text-blue-500">Digital</span>
+            <br />
+            Experiences
+            <br />
+            That <span className="text-blue-500">Matter</span>
           </h1>
-          <p className="text-gray-300 mb-8 max-w-xl">
-            Transform your business with cutting-edge web solutions. We craft innovative, scalable, 
-            and user-centric digital products that drive growth and success.
+
+          <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 mb-8">
+            Transform your business with cutting-edge web solutions. We craft
+            scalable, innovative, and user-centric digital products.
           </p>
 
           {/* Buttons */}
-          <div className="flex gap-4 mb-10">
+          <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-10">
             <motion.a
               whileHover={{ scale: 1.05 }}
-              className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition"
               href="#get-quote"
+              className="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition"
             >
               Get Free Quote
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.05 }}
-              className="px-6 py-3 border border-blue-500 text-blue-500 font-medium rounded-lg hover:bg-blue-500 hover:text-white transition"
               href="#work"
+              className="px-6 py-3 border border-blue-500 text-blue-400 rounded-lg font-medium hover:bg-blue-500 hover:text-white transition"
             >
               View Our Work
             </motion.a>
           </div>
 
           {/* Stats */}
-          <div className="flex gap-8 text-white font-semibold">
+          <div className="flex flex-wrap justify-center lg:justify-start gap-10">
             {stats.map((stat, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 * i }}
-                className="flex flex-col"
+                transition={{ delay: i * 0.2 }}
+                className="flex flex-col items-center lg:items-start"
               >
-                <span className="text-2xl md:text-3xl text-blue-500">{stat.number}</span>
-                <span className="text-gray-300 text-sm">{stat.label}</span>
+                <span className="text-2xl md:text-3xl text-blue-500 font-bold">
+                  {stat.number}
+                </span>
+                <span className="text-sm text-gray-300">
+                  {stat.label}
+                </span>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Right Side - Central Circle + Feature Boxes */}
-        <div className="relative flex-1 w-full h-[400px] lg:h-[500px] flex items-center justify-center">
-          
-          {/* Central Circle */}
+        {/* RIGHT ANIMATION (Desktop only) */}
+        <div className="hidden lg:flex relative flex-1 h-105 items-center justify-center">
+
+          {/* Center Circle */}
           <motion.div
-            className="w-32 h-32 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10"
+            className="w-32 h-32 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-xl shadow-xl z-10"
             animate={{ scale: [1, 1.1, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             AM
           </motion.div>
 
-          {/* Orbiting Feature Boxes - Glass Transparent */}
+          {/* Floating Cards */}
           {features.map((feat, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1, x: positions[i].x, y: positions[i].y }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="absolute w-30 h-34 flex flex-col items-center justify-center gap-2 rounded-xl shadow-lg cursor-pointer text-white 
-                         bg-blue/15 backdrop-blur-md border border-white/20"
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                x: desktopPositions[i].x,
+                y: desktopPositions[i].y,
+              }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="
+                absolute w-32 h-36
+                rounded-2xl
+                bg-white/5
+                backdrop-blur-xl
+                border border-white/10
+                flex items-center justify-center
+                text-white shadow-lg
+              "
             >
               <motion.div
-                animate={{ float: [0, 15, -20, 0] }}
-                transition={{ duration: 2 + i, repeat: Infinity, ease: "easeInOut" }}
-                className="text-3xl"
+                animate={{ y: [0, -10, 0] }}
+                transition={{
+                  duration: 3 + i * 0.3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="flex flex-col items-center gap-1 text-center"
               >
-                {feat.icon}
+                {feat.type === "text" ? (
+                  <>
+                    <span className="text-3xl font-extrabold text-blue-400">
+                      {feat.title}
+                    </span>
+                    <span className="text-xs text-white/80">
+                      {feat.subtitle}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-2xl">{feat.icon}</div>
+                    <span className="text-xs text-white/80">
+                      {feat.label}
+                    </span>
+                  </>
+                )}
               </motion.div>
-              <span className="text-sm font-medium text-center">{feat.label}</span>
             </motion.div>
           ))}
         </div>
       </div>
-
     </section>
   );
 };
