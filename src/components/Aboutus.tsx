@@ -1,0 +1,272 @@
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+
+import { motion } from "framer-motion";
+import { FaBullseye, FaEye, FaFlag, FaClock, FaRocket, FaUsers, FaAward } from "react-icons/fa";
+
+function Counter({
+  value,
+  duration = 1200,
+}: {
+  value: number;
+  duration?: number;
+}) {
+  const [count, setCount] = useState(0);
+  const startedRef = useRef(false);
+  const ref = useRef<HTMLSpanElement | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        if (startedRef.current) return;
+
+        startedRef.current = true;
+
+        const start = 0;
+        const end = value;
+        const startTime = performance.now();
+
+        const animate = (now: number) => {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const current = Math.floor(start + (end - start) * progress);
+          setCount(current);
+
+          if (progress < 1) requestAnimationFrame(animate);
+        };
+
+        requestAnimationFrame(animate);
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, [value, duration]);
+
+  return <span ref={ref}>{count}</span>;
+}
+
+
+export default function AboutUs() {
+  return (
+    <section className="min-h-screen w-full cursor-default bg-linear-to-b from-[#050b14] via-[#070f1e] to-[#050b14] text-white px-6 py-24">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12 sm:mb-12 lg:mb-12 px-2">
+          <span className="inline-block mb-4 px-5 py-1.5 text-s rounded-full bg-blue-500/10 text-blue-400 transition-all duration-500 hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:scale-105">
+            About Us
+          </span> <br />
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight transition-all duration-500 hover:drop-shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:scale-115 transform inline-block">
+            We Are <span className="text-blue-500">AM Software Solution</span>
+          </h1>
+
+          <p className="mt-2 max-w-2xl mx-auto text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed">
+            A focused team of UI/UX designers, web developers, and SEO specialists building
+            visually appealing, performance-driven digital products.
+          </p>
+        </div>
+
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-center">
+          {/* Left Card */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            whileHover={{ scale: 1.08 }}
+            transition={{ duration: 0.1 }}
+            viewport={{ once: true }}
+            className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-8 lg:p-10 transition-all duration-500 hover:shadow-[0_0_80px_rgba(59,130,246,0.25)] hover:border-blue-500/40 w-full max-w-xl mx-auto min-h-95 sm:min-h-105 lg:min-h-115 flex flex-col justify-between"
+          >
+
+
+            <div className="flex flex-col items-center mt-4">
+              <div className="h-28 w-28 rounded-full bg-blue-500 flex items-center justify-center text-4xl font-bold mb-4">
+                AM
+              </div>
+              <h3 className="text-4xl sm:text-3xl font-bold text-center mb-3">Design-Driven Development</h3>
+              <p className="text-center text-gray-200 text-base">
+                Modern UI, Clean Code, Scalable Database
+              </p>
+            </div>
+
+            <div className="flex items-center gap-4 px-6 py-4 rounded-xl bg-black/30 border border-white/10 w-fit ml-auto mb-4 animate-float-button transition-all duration-500 hover:shadow-[0_0_10px_#3b82f6,0_0_20px_#3b82f6] hover:border-blue-400">
+              <span className="h-10 w-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg">✓</span>
+              <div>
+                <p className="text-base font-medium">SEO Optimized</p>
+                <p className="text-sm text-gray-400">Performance Focused</p>
+              </div>
+            </div>
+
+            <style jsx>{`
+  @keyframes floatButton {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .animate-float-button {
+    animation: floatButton 2s ease-in-out infinite;
+  }
+`}</style>
+
+
+
+          </motion.div>
+
+
+
+          {/* Right Content */}
+          <div>
+            <h2 className="text-xl sm:text-2xl md:text-2xl font-bold mb-4 transition-all duration-500 hover:drop-shadow-[0_0_20px_rgba(59,130,246,0.6)] hover:scale-105 transform inline-block">
+              Designing & Developing{" "}
+              <span className="text-blue-500">
+                Impactful Web <br /> Experiences
+              </span>
+            </h2>
+
+            <p className="text-gray-400 text-base sm:text-m leading-relaxed mb-6">
+              At AM Software Solution, we specialize in UI/UX design, website redesign,
+              and full-stack web development backed by database. Every interface
+              we design is user-centric and conversion-focused.
+            </p>
+            <p className="text-gray-400 text-m sm:text-m leading-relaxed mb-8 sm:mb-10">
+              From SEO-optimized landing pages to scalable web applications, we
+              ensure fast load times, clean architecture, and seamless performance
+              across all devices.
+            </p>
+
+            <div className="space-y-3 sm:space-y-4">
+              {/* Our Mission */}
+              <div className="group flex gap-4 p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 transition-all duration-500 hover:bg-blue-500/5 hover:border-blue-500/40 hover:shadow-[0_0_35px_rgba(59,130,246,0.25)] hover:scale-105">
+
+
+                {/* Square Icon Background */}
+                <div className="flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 shrink-0">
+                  <div className="relative flex items-center justify-center">
+                    <span className="absolute h-5 w-5 sm:h-6 sm:w-6 rounded-full border-2 border-blue-500"></span>
+                    <span className="absolute h-3.5 w-3.5 sm:h-4 sm:w-4 rounded-full border-2 border-blue-500"></span>
+                    <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full border-2 border-blue-500 bg-transparent"></span>
+
+
+                  </div>
+                </div>
+
+
+
+
+                <div>
+                  <h4 className="font-semibold text-16px sm:text-16px mb-1">Our Mission</h4>
+                  <p className="text-gray-400 text-sm sm:text-muted-forehead leading-relaxed">
+                    To craft intuitive UI/UX designs and high-performance web solutions
+                    that enhance usability, engagement, and business growth.
+                  </p>
+                </div>
+              </div>
+
+              {/* Our Vision */}
+              <div className="group flex gap-4 p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 transition-all duration-500 hover:bg-blue-500/5 hover:border-blue-500/40 hover:shadow-[0_0_35px_rgba(59,130,246,0.25)] hover:scale-105">
+
+
+                {/* Square Icon Background */}
+                <div className="flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 shrink-0">
+                  <FaEye className="text-blue-500 text-xl sm:text-xl" />
+                </div>
+
+
+                <div>
+                  <h4 className="font-semibold text-16px sm:text-16px mb-1">Our Vision</h4>
+                  <p className="text-gray-400 text-sm sm:text-muted-forehead leading-relaxed">
+                    To be a trusted digital partner known for clean design, scalable web
+                    development, and data-driven SEO strategies.
+                  </p>
+                </div>
+              </div>
+
+              {/* Our Goal */}
+              <div className="group flex gap-4 p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 transition-all duration-500 hover:bg-blue-500/5 hover:border-blue-500/40 hover:shadow-[0_0_35px_rgba(59,130,246,0.25)] hover:scale-105">
+                {/* Square Icon Background */}
+                <div className="flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 shrink-0">
+                  <FaFlag className="text-blue-500 text-xl sm:text-xl" />
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-16px sm:text-16px mb-1">Our Goal</h4>
+                  <p className="text-gray-400 text-sm sm:text-muted-forehead leading-relaxed">
+                    To redesign and develop modern websites that load fast, rank higher,
+                    and deliver seamless user experiences.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16 sm:mt-20 lg:mt-24">
+  {/* 1 */}
+  <div className="group p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 text-center transition-all duration-500 hover:scale-105 hover:border-blue-500/40 hover:shadow-[0_0_45px_rgba(59,130,246,0.35)]">
+    <FaClock className="text-blue-500 mx-auto mb-3 text-3xl sm:text-4xl" />
+
+    <h3 className="text-xl sm:text-2xl font-bold flex items-center justify-center gap-1">
+      <Counter value={8} />
+      <span className="text-blue-500 inline-block transition-transform duration-500 group-hover:rotate-360">
+  +
+</span>
+
+    </h3>
+
+    <p className="text-gray-400 text-xs sm:text-sm">Years of Expertise</p>
+  </div>
+
+  {/* 2 */}
+  <div className="group p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 text-center transition-all duration-500 hover:scale-105 hover:border-blue-500/40 hover:shadow-[0_0_45px_rgba(59,130,246,0.35)]">
+    <FaRocket className="text-blue-500 mx-auto mb-3 text-3xl sm:text-4xl" />
+
+    <h3 className="text-xl sm:text-2xl font-bold flex items-center justify-center gap-1">
+      <Counter value={200} />
+      <span className="text-blue-500 inline-block transition-transform duration-500 group-hover:rotate-360">
+  +
+</span>
+    </h3>
+
+    <p className="text-gray-400 text-xs sm:text-sm">Web Projects Delivered</p>
+  </div>
+
+  {/* 3 */}
+  <div className="group p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 text-center transition-all duration-500 hover:scale-105 hover:border-blue-500/40 hover:shadow-[0_0_45px_rgba(59,130,246,0.35)]">
+    <FaUsers className="text-blue-500 mx-auto mb-3 text-3xl sm:text-4xl" />
+
+    <h3 className="text-xl sm:text-2xl font-bold flex items-center justify-center gap-1">
+      <Counter value={120} />
+      <span className="text-blue-500 inline-block transition-transform duration-500 group-hover:rotate-360">
+  +
+</span>
+    </h3>
+
+    <p className="text-gray-400 text-xs sm:text-sm">Satisfied Clients</p>
+  </div>
+
+  {/* 4 */}
+  <div className="group p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 text-center transition-all duration-500 hover:scale-105 hover:border-blue-500/40 hover:shadow-[0_0_45px_rgba(59,130,246,0.35)]">
+    <FaAward className="text-blue-500 mx-auto mb-3 text-3xl sm:text-4xl" />
+
+    <h3 className="text-xl sm:text-2xl font-bold flex items-center justify-center gap-1">
+      <Counter value={15} />
+      <span className="text-blue-500 inline-block transition-transform duration-500 group-hover:rotate-360">
+  +
+</span>
+    </h3>
+
+    <p className="text-gray-400 text-xs sm:text-sm">Industry Recognitions</p>
+  </div>
+</div>
+
+
+      </div>
+    </section>
+  );
+}

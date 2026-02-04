@@ -1,3 +1,4 @@
+import AboutUs from "@/components/Aboutus";
 import Header from "@/components/Header";
 import MainSection from "@/components/MainSection";
 import TopBar from "@/components/Topbar";
@@ -8,6 +9,7 @@ export default function Home() {
     <TopBar/>
       <Header />
       <MainSection />
+      <AboutUs/>
     </>
   );
 }
