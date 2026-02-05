@@ -26,8 +26,8 @@ const desktopPositions = [
 
 const MainSection = () => {
   return (
-    <section className="relative w-full min-h-3.5 overflow-hidden flex items-center justify-center px-4 sm:px-6">
-      
+    <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center px-4 sm:px-6">
+
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-30"
@@ -109,7 +109,7 @@ const MainSection = () => {
         </motion.div>
 
         {/* RIGHT ANIMATION (Desktop only) */}
-        <div className="hidden lg:flex relative flex-1 h-105 items-center justify-center">
+        <div className="hidden lg:flex relative flex-1 min-h-[500px] items-center justify-center">
 
           {/* Center Circle */}
           <motion.div
