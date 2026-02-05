@@ -126,65 +126,146 @@ const MainSection = () => {
         </motion.div>
 
         {/* RIGHT ANIMATION (Desktop only) */}
-        <div className="hidden lg:flex relative flex-1 min-h-[500px] items-center justify-center">
+        <div className="hidden lg:flex relative flex-1 min-h-[600px] items-center justify-center">
 
-          {/* Center Circle */}
-          <motion.div
-            className="w-32 h-32 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-xl shadow-xl z-10"
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            AM
-          </motion.div>
+          {/* Animated Background Rings */}
+          {[1, 2, 3].map((ring) => (
+            <motion.div
+              key={ring}
+              className="absolute border border-blue-500/20 rounded-full border-dashed"
+              style={{
+                width: 300 + ring * 120,
+                height: 300 + ring * 120,
+              }}
+              animate={{
+                rotate: ring % 2 === 0 ? 360 : -360,
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                rotate: { duration: 25 + ring * 10, repeat: Infinity, ease: "linear" },
+                scale: { duration: 6 + ring, repeat: Infinity, ease: "easeInOut" }
+              }}
+            />
+          ))}
 
-          {/* Floating Cards */}
+          {/* Central "AM" Pulsing Hub with Radar Pings */}
+          <div className="relative z-10 flex items-center justify-center">
+            {/* Radar Pings */}
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="absolute w-32 h-32 rounded-full border border-cyan-400/50"
+                initial={{ scale: 1, opacity: 0.5 }}
+                animate={{
+                  scale: 2.5,
+                  opacity: 0,
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: i * 1,
+                  ease: "easeOut"
+                }}
+              />
+            ))}
+
+            <motion.div
+              className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-bold text-2xl shadow-[0_0_50px_rgba(59,130,246,0.5)] border border-white/20 z-10"
+              animate={{
+                scale: [1, 1.05, 1],
+                boxShadow: [
+                  "0 0 30px rgba(59,130,246,0.3)",
+                  "0 0 60px rgba(59,130,246,0.6)",
+                  "0 0 30px rgba(59,130,246,0.3)"
+                ]
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              AM
+            </motion.div>
+
+            {/* Inner Glowing Ring */}
+            <div className="absolute inset-0 -m-4 border-2 border-cyan-400/30 rounded-full animate-pulse blur-sm" />
+          </div>
+
+          {/* Floating Feature Cards */}
           {features.map((feat, i) => (
             <motion.div
               key={i}
+              className="absolute z-20"
               initial={{ opacity: 0, scale: 0.7 }}
               animate={{
                 opacity: 1,
                 scale: 1,
-                x: desktopPositions[i].x,
-                y: desktopPositions[i].y,
+                x: desktopPositions[i].x * 1.25,
+                y: desktopPositions[i].y * 1.25,
               }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="
-                absolute w-32 h-36
-                rounded-2xl
-                bg-white/5
-                backdrop-blur-xl
-                border border-white/10
-                flex items-center justify-center
-                text-white shadow-lg
-              "
+              transition={{
+                duration: 1,
+                delay: i * 0.15,
+                ease: [0.23, 1, 0.32, 1] // Custom smooth easeOut
+              }}
             >
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{
-                  duration: 3 + i * 0.3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
+                whileHover={{
+                  scale: 1.15,
+                  y: -15,
+                  boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
+                  transition: { type: "spring", stiffness: 300, damping: 15 }
                 }}
-                className="flex flex-col items-center gap-1 text-center"
+                className="
+                  w-36 h-40
+                  rounded-2xl
+                  bg-white/5
+                  backdrop-blur-3xl
+                  border border-white/10
+                  flex flex-col items-center justify-center
+                  text-white shadow-2xl
+                  cursor-pointer
+                  group
+                  transition-all duration-500
+                  hover:bg-blue-500/10 hover:border-blue-400/50
+                "
               >
-                {feat.type === "text" ? (
-                  <>
-                    <span className="text-3xl font-extrabold text-blue-400">
-                      {feat.title}
-                    </span>
-                    <span className="text-xs text-white/80">
-                      {feat.subtitle}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <div className="text-2xl">{feat.icon}</div>
-                    <span className="text-xs text-white/80">
-                      {feat.label}
-                    </span>
-                  </>
-                )}
+                {/* Orbital Animation (Internal movement for extra smoothness) */}
+                <motion.div
+                  animate={{
+                    y: [0, -12, 0],
+                    rotate: [0, 2, 0, -2, 0]
+                  }}
+                  transition={{
+                    duration: 5 + i,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="flex flex-col items-center gap-3 text-center"
+                >
+                  {feat.type === "text" ? (
+                    <>
+                      <div className="relative">
+                        <span className="text-4xl font-extrabold bg-gradient-to-b from-blue-300 to-cyan-200 bg-clip-text text-transparent drop-shadow-sm">
+                          {feat.title}
+                        </span>
+                        <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-blue-500/50 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                      </div>
+                      <span className="text-[10px] font-bold text-white/60 uppercase tracking-[0.2em]">
+                        {feat.subtitle}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-4xl text-blue-400 drop-shadow-[0_0_12px_rgba(59,130,246,0.6)] group-hover:scale-110 transition-transform duration-500">
+                        {feat.icon}
+                      </div>
+                      <span className="text-[10px] font-bold text-white/60 uppercase tracking-[0.2em]">
+                        {feat.label}
+                      </span>
+                    </>
+                  )}
+                </motion.div>
+
+                {/* Hover Glow Effect */}
+                <div className="absolute inset-0 rounded-2xl bg-blue-500/0 group-hover:bg-blue-500/5 transition-colors duration-500 -z-10" />
               </motion.div>
             </motion.div>
           ))}
@@ -210,7 +291,7 @@ const BackgroundHighlight = () => {
   }, [mouseX, mouseY]);
 
   // Mask for the "Flashlight" effect - circles around the mouse
-  const maskImage = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black, transparent)`;
+  const maskImage = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black, rgba(0,0,0,0.15))`;
   const stylePromise = { maskImage, WebkitMaskImage: maskImage };
 
   return (
@@ -237,7 +318,7 @@ const BackgroundHighlight = () => {
         />
 
         {/* 2. Tech Icons / Stacks visible only under light */}
-        <div className="absolute inset-0 overflow-hidden opacity-90 select-none pointer-events-none">
+        <div className="absolute inset-0 overflow-hidden opacity-100 select-none pointer-events-none">
           {/* Floating Animated Icons */}
           {[
             { Icon: FaReact, color: "text-cyan-400", size: "text-7xl", top: "10%", left: "10%" },
@@ -254,11 +335,11 @@ const BackgroundHighlight = () => {
             { Icon: FaBrain, color: "text-pink-400", size: "text-7xl", top: "85%", left: "80%" },
             { Icon: FaCloud, color: "text-sky-300", size: "text-8xl", top: "5%", left: "90%" },
             { Icon: FaGlobe, color: "text-teal-400", size: "text-6xl", top: "90%", left: "40%" },
-            { Icon: FaLaptop, color: "text-gray-300", size: "text-7xl", top: "55%", left: "10%" },
+            { Icon: FaLaptop, color: "text-gray-300", size: "text-7xl", top: "35%", left: "10%" },
           ].map((item, i) => (
             <motion.div
               key={i}
-              className={`absolute ${item.size} ${item.color} opacity-60`}
+              className={`absolute ${item.size} ${item.color} opacity-100`}
               style={{ top: item.top, left: item.left }}
               animate={{
                 y: [0, -20, 0, 20, 0],
