@@ -81,7 +81,6 @@ const desktopPositions = [
 /* ---------------- MAIN SECTION ---------------- */
 
 const MainSection = () => {
-  // Intro phases
   const [introPhase, setIntroPhase] = React.useState<
     "logoOnly" | "spinning" | "throwing" | "done"
   >("logoOnly");
@@ -102,25 +101,18 @@ const MainSection = () => {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
 
-      // AM logo starts at center
       setOffsets({
         x: centerX - (hubRect.left + hubRect.width / 2),
         y: centerY - (hubRect.top + hubRect.height / 2),
       });
 
-      // Content should start from behind logo (center)
       setThrowVector({
         x: centerX - (leftRect.left + leftRect.width / 2),
         y: centerY - (leftRect.top + leftRect.height / 2),
       });
 
-      // Start spinning immediately
       setIntroPhase("spinning");
-
-      // Start throwing while spinning
       setTimeout(() => setIntroPhase("throwing"), 600);
-
-      // Finish
       setTimeout(() => setIntroPhase("done"), 2800);
     };
 
@@ -133,8 +125,6 @@ const MainSection = () => {
   const isThrowing = introPhase === "throwing" || introPhase === "done";
   const isDone = introPhase === "done";
 
-  // 🔥 REALISTIC THROW SETTINGS (cards)
-  // Each card gets a different arc + rotation
   const arcConfig = [
     { arcY: -120, rot: -35 },
     { arcY: -90, rot: 40 },
@@ -144,7 +134,7 @@ const MainSection = () => {
 
   return (
     <LazyMotion features={domAnimation}>
-      <section className="relative w-full overflow-hidden flex items-start lg:items-center justify-center px-4 sm:px-6 pt-14 pb-6 sm:py-4 lg:py-6 min-h-[unset] md:min-h-screen">
+      <section className="relative w-full overflow-hidden flex items-start lg:items-center justify-center px-4 sm:px-6 pt-14 pb-10 sm:py-6 lg:py-6 md:min-h-screen">
         {/* Background appears ONLY during throwing */}
         <div
           style={{
@@ -162,14 +152,9 @@ const MainSection = () => {
             initial={{ opacity: 0, scale: 0 }}
             animate={{
               opacity: isThrowing ? 1 : 0,
-
-              // realistic throw: pop + settle
               scale: isThrowing ? [0.2, 1.08, 0.98, 1] : 0,
-
-              // launch from center
               x: isThrowing ? [throwVector.x, 20, -6, 0] : throwVector.x,
               y: isThrowing ? [throwVector.y, -14, 6, 0] : throwVector.y,
-
               rotate: isThrowing ? [-8, 2, -1, 0] : -8,
               filter: isThrowing ? ["blur(10px)", "blur(0px)"] : "blur(10px)",
             }}
@@ -317,9 +302,9 @@ const MainSection = () => {
             </m.div>
           </m.div>
 
-          {/* RIGHT SIDE */}
-          <div className="flex relative flex-1 min-h-[520px] lg:min-h-[600px] items-center justify-center pointer-events-none">
-            {/* Animated Rings only after throwing */}
+          {/* ✅ RIGHT SIDE COMPLETELY HIDDEN ON MOBILE (NO EMPTY SPACE) */}
+          <div className="hidden md:flex relative flex-1 min-h-[520px] lg:min-h-[600px] items-center justify-center pointer-events-none">
+            {/* Animated Rings */}
             {isThrowing &&
               [1, 2].map((ring) => (
                 <m.div
@@ -348,7 +333,7 @@ const MainSection = () => {
 
             {/* AM HUB */}
             <div className="relative z-10 flex items-center justify-center pointer-events-auto">
-              {/* Conic ring only after throwing */}
+              {/* Conic ring */}
               <m.div
                 className="absolute w-[360px] h-[360px] lg:w-[400px] lg:h-[400px] rounded-full pointer-events-none"
                 style={{
@@ -370,7 +355,7 @@ const MainSection = () => {
                 }}
               />
 
-              {/* Atmospheres only after throwing */}
+              {/* Atmospheres */}
               {isThrowing &&
                 [0, 1].map((i) => (
                   <m.div
@@ -416,7 +401,7 @@ const MainSection = () => {
                 }}
                 style={{ willChange: "transform" }}
               >
-                {/* Gradient Ring only after throwing */}
+                {/* Gradient Ring */}
                 <m.div
                   className="absolute inset-0 rounded-full"
                   initial={{ opacity: 0 }}
@@ -441,12 +426,8 @@ const MainSection = () => {
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: 1,
-
-                    // start from center
                     x: introPhase === "logoOnly" ? offsets.x : 0,
                     y: introPhase === "logoOnly" ? offsets.y : 0,
-
-                    // spin fast 10 times
                     rotate: introPhase === "spinning" ? 3600 : 0,
                     scale: 1,
                   }}
@@ -471,12 +452,9 @@ const MainSection = () => {
               const pos = desktopPositions[i];
               const arc = arcConfig[i];
 
-              // start from behind AM circle (center)
               const startX = offsets.x;
               const startY = offsets.y;
 
-              // 🔥 REALISTIC THROW KEYFRAMES
-              // start -> arc peak -> overshoot -> settle
               const xFrames = isThrowing
                 ? [startX, pos.x * 1.25, pos.x * 0.92, pos.x * 1.02, pos.x]
                 : [startX, startX, startX, startX, startX];
@@ -496,17 +474,13 @@ const MainSection = () => {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
                     opacity: isThrowing && !isMobile ? 1 : 0,
-
-                    // pop effect
                     scale:
                       isThrowing && !isMobile
                         ? [0.15, 1.1, 0.98, 1]
                         : 0.15,
-
                     x: xFrames,
                     y: yFrames,
                     rotate: rFrames,
-
                     filter:
                       isThrowing && !isMobile
                         ? ["blur(10px)", "blur(0px)"]
@@ -678,13 +652,38 @@ const BackgroundHighlight = () => {
             },
             { Icon: FaCode, color: "text-blue-500", top: "50%", left: "50%" },
             { Icon: FaLock, color: "text-rose-400", top: "80%", left: "20%" },
-            { Icon: FaSearch, color: "text-purple-400", top: "60%", left: "85%" },
-            { Icon: FaRocket, color: "text-orange-400", top: "15%", left: "40%" },
-            { Icon: FaHtml5, color: "text-orange-600", top: "75%", left: "60%" },
+            {
+              Icon: FaSearch,
+              color: "text-purple-400",
+              top: "60%",
+              left: "85%",
+            },
+            {
+              Icon: FaRocket,
+              color: "text-orange-400",
+              top: "15%",
+              left: "40%",
+            },
+            {
+              Icon: FaHtml5,
+              color: "text-orange-600",
+              top: "75%",
+              left: "60%",
+            },
             { Icon: FaCss3, color: "text-blue-600", top: "30%", left: "20%" },
             { Icon: FaJs, color: "text-yellow-400", top: "40%", left: "70%" },
-            { Icon: FaServer, color: "text-slate-400", top: "70%", left: "10%" },
-            { Icon: FaMobile, color: "text-indigo-400", top: "25%", left: "60%" },
+            {
+              Icon: FaServer,
+              color: "text-slate-400",
+              top: "70%",
+              left: "10%",
+            },
+            {
+              Icon: FaMobile,
+              color: "text-indigo-400",
+              top: "25%",
+              left: "60%",
+            },
             { Icon: FaBrain, color: "text-pink-400", top: "85%", left: "80%" },
             { Icon: FaCloud, color: "text-sky-300", top: "5%", left: "90%" },
             { Icon: FaGlobe, color: "text-teal-400", top: "90%", left: "40%" },
@@ -731,6 +730,7 @@ const BackgroundHighlight = () => {
             </m.div>
           ))}
 
+          {/* ✅ Rotating dashed circle already hidden on mobile */}
           <m.div
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
