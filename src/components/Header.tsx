@@ -9,6 +9,8 @@ import {
   FaInstagram,
 } from "react-icons/fa6";
 
+import Image from "next/image";
+
 export default function Header() {
   const [open, setOpen] = useState(false);
 
@@ -28,7 +30,7 @@ export default function Header() {
 
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="Logo" className="w-12 h-10" />
+            <Image src="/logo.png" alt="Logo" width={48} height={40} className="w-12 h-10" priority />
             <div className="leading-tight">
               <p className="font-bold text-2xl text-white hover:text-blue-400 transition duration-300 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">
                 Software
@@ -184,4 +186,3 @@ export default function Header() {
     </>
   );
 }
- 

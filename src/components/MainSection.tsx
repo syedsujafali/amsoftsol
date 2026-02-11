@@ -1,13 +1,16 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { m, useSpring, useTransform } from "framer-motion";
 import {
+  m,
+  useSpring,
+  useTransform,
   LazyMotion,
   domAnimation,
   useMotionTemplate,
   useMotionValue,
 } from "framer-motion";
+import Image from "next/image";
 import {
   FaRocket,
   FaLock,
@@ -91,39 +94,53 @@ const MainSection = () => {
   const hubRef = useRef<HTMLDivElement>(null);
   const leftContentRef = useRef<HTMLDivElement>(null);
 
+  const [isMounted, setIsMounted] = React.useState(false);
+
   useEffect(() => {
-    const measure = () => {
-      if (!hubRef.current || !leftContentRef.current) return;
+    // Start with a small delay for desktop measurements to ensure refs are ready
+    const t = setTimeout(() => {
+      setIsMounted(true);
+      const isMobileDevice = window.innerWidth < 768;
 
-      const hubRect = hubRef.current.getBoundingClientRect();
-      const leftRect = leftContentRef.current.getBoundingClientRect();
+      if (isMobileDevice) {
+        setIntroPhase("done");
+        return;
+      }
 
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
+      const measure = () => {
+        if (!hubRef.current || !leftContentRef.current) return;
 
-      setOffsets({
-        x: centerX - (hubRect.left + hubRect.width / 2),
-        y: centerY - (hubRect.top + hubRect.height / 2),
-      });
+        const hubRect = hubRef.current.getBoundingClientRect();
+        const leftRect = leftContentRef.current.getBoundingClientRect();
 
-      setThrowVector({
-        x: centerX - (leftRect.left + leftRect.width / 2),
-        y: centerY - (leftRect.top + leftRect.height / 2),
-      });
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
 
-      setIntroPhase("spinning");
-      setTimeout(() => setIntroPhase("throwing"), 600);
-      setTimeout(() => setIntroPhase("done"), 2800);
-    };
+        setOffsets({
+          x: centerX - (hubRect.left + hubRect.width / 2),
+          y: centerY - (hubRect.top + hubRect.height / 2),
+        });
 
-    const t = setTimeout(measure, 120);
+        setThrowVector({
+          x: centerX - (leftRect.left + leftRect.width / 2),
+          y: centerY - (leftRect.top + leftRect.height / 2),
+        });
+
+        setIntroPhase("spinning");
+        setTimeout(() => setIntroPhase("throwing"), 600);
+        setTimeout(() => setIntroPhase("done"), 2800);
+      };
+
+      measure();
+    }, 120);
+
     return () => clearTimeout(t);
   }, []);
 
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const isMobile = isMounted && typeof window !== "undefined" && window.innerWidth < 768;
 
-  const isThrowing = introPhase === "throwing" || introPhase === "done";
-  const isDone = introPhase === "done";
+  const isThrowing = (isMounted && (introPhase === "throwing" || introPhase === "done")) || (typeof window !== "undefined" && window.innerWidth < 768);
+  const isDone = (isMounted && introPhase === "done") || (typeof window !== "undefined" && window.innerWidth < 768);
 
   const arcConfig = [
     { arcY: -120, rot: -35 },
@@ -135,7 +152,7 @@ const MainSection = () => {
   return (
     <LazyMotion features={domAnimation}>
       <section className="relative w-full overflow-hidden flex items-start lg:items-center justify-center px-4 sm:px-6 pt-14 pb-10 sm:py-6 lg:py-6 md:min-h-screen">
-        {/* Background appears ONLY during throwing */}
+        {/* Background appears ONLY during throwing or when done */}
         <div
           style={{
             opacity: isThrowing ? 1 : 0,
@@ -149,8 +166,15 @@ const MainSection = () => {
           {/* LEFT CONTENT */}
           <m.div
             ref={leftContentRef}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{
+            initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+            animate={isMobile ? {
+              opacity: 1,
+              scale: 1,
+              x: 0,
+              y: 0,
+              rotate: 0,
+              filter: "blur(0px)",
+            } : {
               opacity: isThrowing ? 1 : 0,
               scale: isThrowing ? [0.2, 1.08, 0.98, 1] : 0,
               x: isThrowing ? [throwVector.x, 20, -6, 0] : throwVector.x,
@@ -163,11 +187,19 @@ const MainSection = () => {
               ease: [0.16, 1, 0.3, 1],
               opacity: { duration: 0.25 },
             }}
-            className="flex-1 text-center lg:text-left pointer-events-auto w-full"
+            className="flex-1 text-center lg:text-left pointer-events-auto w-full max-sm:opacity-100 max-sm:transform-none"
           >
             <m.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{
+              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+              animate={isMobile ? {
+                opacity: 1,
+                y: 0,
+                boxShadow: [
+                  "0 0 10px rgba(59,130,246,0.3)",
+                  "0 0 25px rgba(59,130,246,0.6)",
+                  "0 0 10px rgba(59,130,246,0.3)",
+                ],
+              } : {
                 opacity: isThrowing ? 1 : 0,
                 y: isThrowing ? 0 : -20,
                 boxShadow: [
@@ -194,6 +226,7 @@ const MainSection = () => {
                 border border-blue-400/30
               "
             >
+
               <m.div
                 animate={{ opacity: [0.6, 1, 0.6], scale: [1, 1.2, 1] }}
                 transition={{
@@ -385,10 +418,10 @@ const MainSection = () => {
                   scale: isDone ? [1, 1.08, 1] : 1,
                   boxShadow: isDone
                     ? [
-                        "0 0 45px rgba(255,255,255,0.12), 0 0 80px rgba(34,211,238,0.20)",
-                        "0 0 70px rgba(255,255,255,0.18), 0 0 140px rgba(59,130,246,0.35)",
-                        "0 0 45px rgba(255,255,255,0.12), 0 0 80px rgba(34,211,238,0.20)",
-                      ]
+                      "0 0 45px rgba(255,255,255,0.12), 0 0 80px rgba(34,211,238,0.20)",
+                      "0 0 70px rgba(255,255,255,0.18), 0 0 140px rgba(59,130,246,0.35)",
+                      "0 0 45px rgba(255,255,255,0.12), 0 0 80px rgba(34,211,238,0.20)",
+                    ]
                     : "0 0 30px rgba(255,255,255,0.12)",
                 }}
                 transition={{
@@ -422,9 +455,15 @@ const MainSection = () => {
                 {/* LOGO */}
                 <m.div
                   ref={hubRef}
-                  className="relative z-10 flex items-center justify-center"
+                  className="relative z-10 flex items-center justify-center max-sm:opacity-100 max-sm:transform-none"
                   initial={{ opacity: 0 }}
-                  animate={{
+                  animate={isMobile ? {
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    rotate: 0,
+                    scale: 1,
+                  } : {
                     opacity: 1,
                     x: introPhase === "logoOnly" ? offsets.x : 0,
                     y: introPhase === "logoOnly" ? offsets.y : 0,
@@ -438,10 +477,13 @@ const MainSection = () => {
                     opacity: { duration: 0.3 },
                   }}
                 >
-                  <img
+                  <Image
                     src="/logo.png"
                     alt="AM Logo"
+                    width={64}
+                    height={64}
                     className="relative z-10 w-14 h-14 lg:w-16 lg:h-16 object-contain drop-shadow-[0_0_18px_rgba(255,255,255,0.35)]"
+                    priority
                   />
                 </m.div>
               </m.div>
@@ -473,18 +515,12 @@ const MainSection = () => {
                   className="absolute z-20 will-change-transform pointer-events-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
-                    opacity: isThrowing && !isMobile ? 1 : 0,
-                    scale:
-                      isThrowing && !isMobile
-                        ? [0.15, 1.1, 0.98, 1]
-                        : 0.15,
+                    opacity: isThrowing ? 1 : 0,
+                    scale: isThrowing ? [0.15, 1.1, 0.98, 1] : 0.15,
                     x: xFrames,
                     y: yFrames,
                     rotate: rFrames,
-                    filter:
-                      isThrowing && !isMobile
-                        ? ["blur(10px)", "blur(0px)"]
-                        : "blur(10px)",
+                    filter: isThrowing ? ["blur(10px)", "blur(0px)"] : "blur(10px)",
                   }}
                   transition={{
                     duration: 1.25,
@@ -734,7 +770,7 @@ const BackgroundHighlight = () => {
           <m.div
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-blue-500/20 rounded-full border-dashed"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-blue-500/20 rounded-full border-dashed"
             style={{ willChange: "transform" }}
           />
         </div>
