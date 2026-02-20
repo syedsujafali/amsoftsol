@@ -137,10 +137,10 @@ const MainSection = () => {
     return () => clearTimeout(t);
   }, []);
 
-  const isMobile = isMounted && typeof window !== "undefined" && window.innerWidth < 768;
+  const isMobile = isMounted && window.innerWidth < 768;
 
-  const isThrowing = (isMounted && (introPhase === "throwing" || introPhase === "done")) || (typeof window !== "undefined" && window.innerWidth < 768);
-  const isDone = (isMounted && introPhase === "done") || (typeof window !== "undefined" && window.innerWidth < 768);
+  const isThrowing = isMounted && ((introPhase === "throwing" || introPhase === "done") || window.innerWidth < 768);
+  const isDone = isMounted && (introPhase === "done" || window.innerWidth < 768);
 
   const arcConfig = [
     { arcY: -120, rot: -35 },
@@ -151,7 +151,7 @@ const MainSection = () => {
 
   return (
     <LazyMotion features={domAnimation}>
-      <section className="relative w-full overflow-hidden flex items-start lg:items-center justify-center px-4 sm:px-6 pt-14 pb-10 sm:py-6 lg:py-6 md:min-h-screen">
+      <section id="home" className="relative w-full overflow-hidden flex items-start lg:items-center justify-center px-4 sm:px-6 pt-14 pb-10 sm:py-6 lg:py-6 md:min-h-screen">
         {/* Background appears ONLY during throwing or when done */}
         <div
           style={{
@@ -187,7 +187,7 @@ const MainSection = () => {
               ease: [0.16, 1, 0.3, 1],
               opacity: { duration: 0.25 },
             }}
-            className="flex-1 text-center lg:text-left pointer-events-auto w-full max-sm:opacity-100 max-sm:transform-none"
+            className="flex-1 text-center lg:text-left pointer-events-auto w-full max-md:!opacity-100 max-md:!transform-none max-md:!filter-none max-md:!transition-none"
           >
             <m.div
               initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
@@ -224,6 +224,7 @@ const MainSection = () => {
                 rounded-full
                 bg-blue-500/10
                 border border-blue-400/30
+                max-md:!opacity-100 max-md:!translate-y-0 max-md:!shadow-none max-md:!transition-none
               "
             >
 
@@ -270,7 +271,7 @@ const MainSection = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                href="#get-quote"
+                href="/contact"
                 className="
                   relative overflow-hidden group
                   w-full sm:w-auto
@@ -299,7 +300,7 @@ const MainSection = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                href="#work"
+                href="/portfolio"
                 className="
                   w-full sm:w-auto
                   px-6 sm:px-8 py-3 sm:py-4 
@@ -322,7 +323,7 @@ const MainSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: isThrowing ? i * 0.2 : 0 }}
-                  className="flex flex-col items-center lg:items-start"
+                  className="flex flex-col items-center lg:items-start max-md:!opacity-100 max-md:!translate-y-0 max-md:!transition-none"
                 >
                   <span className="text-2xl sm:text-3xl md:text-4xl text-blue-400 font-black tracking-tighter drop-shadow-[0_0_10px_rgba(96,165,250,0.5)]">
                     <Counter value={stat.number} />
@@ -341,7 +342,7 @@ const MainSection = () => {
             {isThrowing &&
               [1, 2].map((ring) => (
                 <m.div
-                  key={ring}
+                  key={ring.toString()}
                   className="absolute border border-blue-500/5 rounded-full border-dashed pointer-events-none"
                   initial={{ opacity: 0 }}
                   animate={{

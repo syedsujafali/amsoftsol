@@ -1,188 +1,183 @@
 "use client";
 
-import { useState } from "react";
-import { FiMail, FiPhone } from "react-icons/fi";
-import {
-  FaFacebookF,
-  FaXTwitter,
-  FaLinkedinIn,
-  FaInstagram,
-} from "react-icons/fa6";
-
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiMenu, FiX } from "react-icons/fi";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
-  const links = ["Home", "About", "Services", "Portfolio", "Blog", "Contact"];
+  // Handle scroll effect for glassmorphism
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const links = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
+  ];
 
   return (
     <>
-      {/* ================= HEADER ================= */}
-      <header
-        className="
-          sticky top-0 z-40
-          bg-[#0A142F]/80 backdrop-blur-lg
-          border-b border-white/10
-        "
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+          ? "bg-[#0A142F]/90 backdrop-blur-md shadow-lg border-b border-white/10 py-3"
+          : "py-5"
+          }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Logo" width={48} height={40} className="w-12 h-10" priority />
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-blue-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-full" />
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={48}
+                height={40}
+                className="w-10 h-10 object-contain relative z-10 transition-transform duration-300 group-hover:scale-110"
+                priority
+              />
+            </div>
             <div className="leading-tight">
-              <p className="font-bold text-2xl text-white hover:text-blue-400 transition duration-300 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">
+              <p className="font-bold text-xl text-white tracking-wide group-hover:text-blue-400 transition-colors duration-300">
                 Software
               </p>
-              <p className="text-sm text-gray-400">Solution</p>
+              <p className="text-xs text-gray-400 font-medium tracking-widest uppercase group-hover:text-gray-300 transition-colors duration-300">
+                Solution
+              </p>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-6 text-gray-300 font-medium">
-            {links.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="
-                  relative transition-all duration-300
-                  hover:text-white hover:-translate-y-1
-                  after:absolute after:left-0 after:-bottom-1
-                  after:h-0.5 after:w-0 after:bg-blue-500
-                  after:transition-all after:duration-300
-                  hover:after:w-full
-                "
+          <nav className="hidden md:flex items-center gap-8">
+            {links.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`relative text-sm font-medium transition-colors duration-300 py-1 group ${pathname === link.href ? "text-blue-400" : "text-gray-300 hover:text-white"
+                  }`}
               >
-                {item}
-              </a>
+                {link.name}
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 transition-all duration-300 ${pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
+                  }`} />
+              </Link>
             ))}
           </nav>
 
           {/* Desktop CTA */}
-          <a
-            href="#get-quote"
-            className="
-              hidden md:block
-              bg-blue-500 hover:bg-blue-600
-              text-white px-5 py-2 rounded-lg font-medium
-              transition-all duration-200
-              hover:scale-105 active:scale-95
-              hover:shadow-[0_0_25px_rgba(59,130,246,0.8)]
-            "
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            Get Quote
-          </a>
+            <Link
+              href="/contact"
+              className="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-500 rounded-full shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:to-blue-400 border border-white/10 overflow-hidden relative group"
+            >
+              <span className="relative z-10">Get Quote</span>
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+            </Link>
+          </motion.div>
 
-          {/* Hamburger */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setOpen(true)}
-            className="md:hidden text-white text-2xl"
+            className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
           >
-            ☰
+            <FiMenu size={24} />
           </button>
         </div>
-      </header>
+      </motion.header>
 
-      {/* ================= MOBILE MENU ================= */}
-      <div
-        className={`
-          fixed inset-0 z-40
-          transition-all duration-700 ease-in-out
-          ${open ? "visible opacity-100" : "invisible opacity-0"}
-        `}
-      >
-        {/* Blur Area */}
-        <div
-          onClick={() => setOpen(false)}
-          className="absolute right-0 top-0 h-full w-[20%] backdrop-blur-lg bg-black/40"
-        />
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] md:hidden"
+            />
 
-        {/* Slide Menu */}
-        <div
-          className={`
-            absolute left-0 top-0 h-full w-[80%]
-            bg-[#0A142F]
-            px-6 py-8 z-50
-            transform transition-transform duration-700 ease-in-out
-            ${open ? "translate-x-0" : "-translate-x-full"}
-          `}
-        >
-          {/* Close */}
-          <button
-            onClick={() => setOpen(false)}
-            className="text-white text-2xl mb-6"
-          >
-            ✕
-          </button>
-
-          {/* Navigation Links */}
-          <nav className="flex flex-col gap-6 text-lg text-gray-300">
-            {links.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setOpen(false)}
-                className="hover:text-white transition hover:translate-x-2"
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
-
-          {/* Divider */}
-          <div className="my-8 h-px bg-white/10" />
-
-          {/* Contact Info */}
-          <div className="flex flex-col gap-4 text-gray-300 text-sm">
-            <a
-              href="mailto:info@amsoftware.com"
-              className="flex items-center gap-3 hover:text-blue-400 transition"
+            {/* Side Drawer */}
+            <motion.div
+              key="drawer"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed right-0 top-0 h-full w-[80%] max-w-sm bg-[#0A142F] border-l border-white/10 shadow-2xl z-[100] md:hidden flex flex-col"
             >
-              <FiMail />
-              info@amsoftware.com
-            </a>
+              {/* Header */}
+              <div className="p-6 flex items-center justify-between border-b border-white/10">
+                <span className="text-xl font-bold text-white">Menu</span>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/5 rounded-lg"
+                >
+                  <FiX size={24} />
+                </button>
+              </div>
 
-            <a
-              href="tel:+914048532637"
-              className="flex items-center gap-3 hover:text-blue-400 transition"
-            >
-              <FiPhone />
-              +91 40 4853 2637
-            </a>
-          </div>
+              {/* Links */}
+              <div className="flex-1 overflow-y-auto py-6 px-6 flex flex-col gap-2">
+                {links.map((link, index) => (
+                  <motion.div
+                    key={link.name}
+                    initial={{ x: 20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className={`flex items-center justify-between p-4 rounded-xl transition-all group ${pathname === link.href ? "text-blue-400 bg-white/5" : "text-gray-300 hover:text-white hover:bg-white/5"
+                        }`}
+                    >
+                      <span className="font-medium text-lg">{link.name}</span>
+                      <span className="text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all">
+                        →
+                      </span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
 
-          {/* Social Icons */}
-          <div className="flex gap-4 mt-8">
-            <a className="p-2 rounded-full text-white bg-linear-to-br from-[#0D47A1] to-[#1976D2] hover:scale-110 transition">
-              <FaFacebookF size={14} />
-            </a>
-            <a className="p-2 rounded-full text-white bg-linear-to-br from-gray-700/40 to-black/70 hover:scale-110 transition">
-              <FaXTwitter size={14} />
-            </a>
-            <a className="p-2 rounded-full text-white bg-linear-to-br from-[#004182] to-[#0A66C2] hover:scale-110 transition">
-              <FaLinkedinIn size={14} />
-            </a>
-            <a className="p-2 rounded-full text-white bg-linear-to-br from-[#C13584] via-[#833AB4] to-[#FCAF45] hover:scale-110 transition">
-              <FaInstagram size={14} />
-            </a>
-          </div>
-
-          {/* Mobile CTA */}
-          <a
-            href="#get-quote"
-            onClick={() => setOpen(false)}
-            className="
-              inline-block mt-10
-              bg-blue-500 hover:bg-blue-600
-              text-white px-6 py-3 rounded-lg font-medium
-              transition hover:scale-105
-            "
-          >
-            Get Quote
-          </a>
-        </div>
-      </div>
+              {/* Footer CTA */}
+              <div className="p-6 border-t border-white/10 bg-white/5">
+                <Link
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="block w-full text-center py-3.5 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold shadow-lg shadow-blue-500/20 active:scale-95 transition-transform"
+                >
+                  Get Quote
+                </Link>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }
+
