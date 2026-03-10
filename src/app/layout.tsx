@@ -4,6 +4,7 @@ import "./globals.css";
 import TopBar from "@/components/Topbar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +32,11 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TopBar />
-        <Header />
+        <ScrollToTop />
+        <div className="sticky top-0 z-50">
+          <TopBar />
+          <Header />
+        </div>
         {children}
         <Footer />
       </body>

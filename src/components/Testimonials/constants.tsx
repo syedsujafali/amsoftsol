@@ -1,0 +1,62 @@
+export const testimonials = [
+    {
+        id: 1,
+        quote: "Our website traffic and engagement improved significantly after their mobile responsiveness and UI/UX improvements. The site now feels fast, clean, and easy to use on phones and tablets.",
+        name: "Neha Sharma",
+        role: "Marketing Head, UrbanMart",
+        initials: "NS",
+        rating: 5,
+        color: "from-blue-500 to-blue-600",
+    },
+    {
+        id: 2,
+        quote: "AM Software Solution delivered a stunning redesign of our dental clinic website. Patient inquiries increased noticeably after launch. Professional, on-time, and highly skilled team.",
+        name: "Dr. Arjun Menon",
+        role: "Founder, Simply Smilez Dental",
+        initials: "AM",
+        rating: 5,
+        color: "from-cyan-500 to-blue-500",
+    },
+    {
+        id: 3,
+        quote: "They built our logistics platform from scratch with a clean dashboard and mobile-ready design. Communication was smooth throughout and the final product exceeded our expectations.",
+        name: "Ramesh Patil",
+        role: "Director, Shiva Roadlines",
+        initials: "RP",
+        rating: 5,
+        color: "from-violet-500 to-blue-500",
+    },
+    {
+        id: 4,
+        quote: "The Turbo Shop website now truly represents our brand. Bold visuals, smooth navigation, and great SEO. We've started getting leads directly through the website for the first time.",
+        name: "Sanjay Kulkarni",
+        role: "Owner, Turbo Shop",
+        initials: "SK",
+        rating: 5,
+        color: "from-indigo-500 to-blue-500",
+    },
+    {
+        id: 5,
+        quote: "Our furniture website looks premium and converts better than before. The team understood our brand vision instantly and translated it into a beautiful, functional site.",
+        name: "Priya Nair",
+        role: "CEO, Aldo Modular Furniture",
+        initials: "PN",
+        rating: 5,
+        color: "from-teal-500 to-cyan-500",
+    },
+    {
+        id: 6,
+        quote: "I was amazed by the speed of delivery and the level of design quality. The new website brought us far more visibility. We get compliments from clients regularly about how professional it looks.",
+        name: "Vikram Joshi",
+        role: "Managing Director, Taskforce Interiors",
+        initials: "VJ",
+        color: "from-blue-400 to-indigo-600",
+        rating: 5,
+    },
+];
+
+export const makeVariants = (dir: number) => ({
+    enter: { x: dir > 0 ? 80 : -80, opacity: 0 },
+    center: { x: 0, opacity: 1 },
+    exit: { x: dir > 0 ? -80 : 80, opacity: 0 },
+});
