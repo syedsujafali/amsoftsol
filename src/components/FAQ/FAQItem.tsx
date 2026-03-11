@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface FAQItemProps {
     faq: {
@@ -16,15 +15,9 @@ interface FAQItemProps {
 
 const FAQItem = ({ faq, index, isOpen, onToggle }: FAQItemProps) => {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
+        <div
         >
-            <motion.div
-                whileHover={{ scale: 1.012, y: -2 }}
-                transition={{ type: "spring", stiffness: 450, damping: 28 }}
+            <div
                 style={{ willChange: "transform" }}
                 className="relative rounded-2xl bg-white/[0.04] backdrop-blur-sm overflow-hidden group cursor-pointer"
                 onClick={onToggle}
@@ -57,9 +50,7 @@ const FAQItem = ({ faq, index, isOpen, onToggle }: FAQItemProps) => {
                         {faq.question}
                     </span>
 
-                    <motion.span
-                        animate={{ rotate: isOpen ? 45 : 0 }}
-                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    <span
                         style={{ willChange: "transform" }}
                         className={`shrink-0 w-7 h-7 rounded-full border flex items-center justify-center text-lg leading-none font-light transition-colors duration-150 ${isOpen
                             ? "border-blue-500/60 text-blue-400 bg-blue-500/10"
@@ -67,26 +58,22 @@ const FAQItem = ({ faq, index, isOpen, onToggle }: FAQItemProps) => {
                             }`}
                     >
                         +
-                    </motion.span>
+                    </span>
                 </div>
 
-                <AnimatePresence>
+                <>
                     {isOpen && (
-                        <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                        <div
                             className="overflow-hidden"
                         >
                             <p className="px-6 pb-5 text-gray-400 text-sm sm:text-base leading-relaxed border-t border-white/5 pt-4">
                                 {faq.answer}
                             </p>
-                        </motion.div>
+                        </div>
                     )}
-                </AnimatePresence>
-            </motion.div>
-        </motion.div>
+                </>
+            </div>
+        </div>
     );
 };
 

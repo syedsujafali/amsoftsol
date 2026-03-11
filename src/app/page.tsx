@@ -1,6 +1,6 @@
-import AboutUs from "@/components/Aboutus";
 import MainSection from "@/components/MainSection";
 import Services from "@/components/Services";
+import AboutUs from "@/components/Aboutus";
 import Portfolio from "@/components/Portfolio";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
@@ -11,13 +11,15 @@ export default function Home() {
   return (
     <>
       <MainSection />
-      <AboutUs />
-      <Services />
-      <Portfolio />
-      <Testimonials />
-      <FAQ />
-      <Blog />
-      <ContactSection />
+      <div className="bg-[#020617]">
+        <AboutUs />
+        <Services />
+        <Portfolio />
+        <Testimonials />
+        <FAQ />
+        <Blog />
+        <ContactSection />
+      </div>
     </>
   );
 }

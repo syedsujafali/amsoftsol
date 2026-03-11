@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { FaClock, FaRocket, FaUsers, FaAward } from "react-icons/fa";
 import Counter from "./Counter";
 
@@ -30,11 +29,7 @@ const AboutStats = () => {
     ];
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.2 }}
+        <div
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16 sm:mt-20 lg:mt-24"
         >
             {stats.map((stat, i) => (
@@ -52,7 +47,7 @@ const AboutStats = () => {
                     <p className="text-gray-400 text-xs sm:text-sm">{stat.label}</p>
                 </div>
             ))}
-        </motion.div>
+        </div>
     );
 };
 

@@ -45,20 +45,21 @@ const FeatureCard = ({
 
     return (
         <m.div
-            className="absolute z-20 will-change-transform pointer-events-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-            initial={{ opacity: 0, scale: 0 }}
+            className="absolute will-change-transform pointer-events-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 !opacity-100"
+            initial={{ opacity: 0, scale: 0, x: startX, y: startY }}
             animate={{
                 opacity: isThrowing ? 1 : 0,
-                scale: isThrowing ? [0.15, 1.1, 0.98, 1] : 0.15,
+                scale: isThrowing ? [0, 1.2, 0.95, 1] : 0,
                 x: xFrames,
                 y: yFrames,
                 rotate: rFrames,
-                filter: isThrowing ? ["blur(10px)", "blur(0px)"] : "blur(10px)",
+                filter: isThrowing ? ["blur(12px)", "blur(0px)"] : "blur(12px)",
             }}
             transition={{
-                duration: isIntroSkipped ? 0.5 : 1.25,
-                delay: isIntroSkipped ? 0.1 + i * 0.08 : isThrowing ? 0.22 + i * 0.16 : 0,
+                duration: isIntroSkipped ? 0.4 : 0.8,
+                delay: isIntroSkipped ? 0 + i * 0.05 : isThrowing ? 0.3 + i * 0.1 : 0,
                 ease: [0.16, 1, 0.3, 1],
+                scale: { duration: isIntroSkipped ? 0.4 : 0.5 },
             }}
             style={{ willChange: "transform" }}
         >

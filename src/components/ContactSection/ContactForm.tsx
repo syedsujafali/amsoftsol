@@ -1,16 +1,11 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { FiSend } from "react-icons/fi";
 
 const ContactForm = () => {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+        <div
             className="p-8 rounded-2xl bg-[#0d1526] border border-white/10"
         >
             <form className="space-y-6">
@@ -26,16 +21,14 @@ const ContactForm = () => {
 
                 <Textarea />
 
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                <button
                     className="group relative inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-semibold text-white border border-blue-500/40 bg-blue-600/20 transition-all duration-500 hover:bg-blue-600 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
                 >
                     Send Message
                     <FiSend className="group-hover:translate-x-1 transition-transform duration-300" />
-                </motion.button>
+                </button>
             </form>
-        </motion.div>
+        </div>
     );
 };
 

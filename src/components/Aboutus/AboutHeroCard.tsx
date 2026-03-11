@@ -1,16 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-
 const AboutHeroCard = () => {
     return (
-        <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.1, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.1 }}
-            whileHover={{ scale: 1.06 }}
+        <div
             className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-8 lg:p-10 transition-all duration-500 hover:shadow-[0_0_80px_rgba(59,130,246,0.25)] hover:border-blue-500/40 w-full max-w-xl mx-auto min-h-[420px] sm:min-h-[480px] lg:min-h-[520px] flex flex-col justify-between"
         >
             <div className="flex flex-col items-center mt-4">
@@ -48,7 +41,7 @@ const AboutHeroCard = () => {
           animation: floatButton 2s ease-in-out infinite;
         }
       `}</style>
-        </motion.div>
+        </div>
     );
 };
 

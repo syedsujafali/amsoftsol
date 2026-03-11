@@ -1,15 +1,10 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-
 const AboutHeader = () => {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: -25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="text-center mb-12 px-2"
+        <div
+            className="text-center mb-8 px-2"
         >
             <div className="flex flex-col items-center gap-4">
                 <span className="inline-block px-5 py-1.5 text-sm rounded-full bg-blue-500/10 text-blue-400 transition-all duration-500 hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:scale-105">
@@ -25,7 +20,7 @@ const AboutHeader = () => {
                 A focused team of UI/UX designers, web developers, and SEO specialists
                 building visually appealing, performance-driven digital products.
             </p>
-        </motion.div>
+        </div>
     );
 };
 

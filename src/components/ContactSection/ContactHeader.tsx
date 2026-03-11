@@ -4,7 +4,7 @@ import React from "react";
 
 const ContactHeader = () => {
     return (
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
             <span className="inline-block px-5 py-1.5 text-sm rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-6 transition-all duration-500 hover:scale-105 hover:shadow-[0_0_25px_rgba(59,130,246,0.4)]">
                 Contact Us
             </span>

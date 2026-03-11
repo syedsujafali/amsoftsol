@@ -5,9 +5,9 @@ import { FiMapPin, FiPhone, FiMail } from "react-icons/fi";
 
 const FooterContact = () => {
     return (
-        <div>
-            <h4 className="font-semibold mb-6 text-white">Contact Info</h4>
-            <div className="space-y-4 text-gray-400 text-sm">
+        <div className="lg:pl-8">
+            <h4 className="font-bold mb-8 text-white text-base uppercase tracking-wider">Contact Info</h4>
+            <div className="space-y-5 text-gray-400 text-[15px]">
                 <div className="flex gap-3 items-start">
                     <FiMapPin className="text-blue-400 mt-1" />
                     <p>

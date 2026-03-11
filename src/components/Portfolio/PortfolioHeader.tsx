@@ -1,20 +1,10 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 
-interface PortfolioHeaderProps {
-    isInView: boolean;
-}
-
-const PortfolioHeader = ({ isInView }: PortfolioHeaderProps) => {
+const PortfolioHeader = () => {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: -25 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="text-center mb-14 px-2"
-        >
+        <div className="text-center mb-8 px-2">
             <span className="inline-block px-5 py-1.5 text-sm rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-5 transition-all duration-500 hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] hover:scale-105">
                 Our Portfolio
             </span>
@@ -29,7 +19,7 @@ const PortfolioHeader = ({ isInView }: PortfolioHeaderProps) => {
                 Explore our latest work and see how we&apos;ve helped businesses
                 transform their digital presence.
             </p>
-        </motion.div>
+        </div>
     );
 };
 

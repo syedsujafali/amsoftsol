@@ -1,6 +1,4 @@
 "use client";
-
-import { motion } from "framer-motion";
 import AboutBackground from "./Aboutus/AboutBackground";
 import AboutHeader from "./Aboutus/AboutHeader";
 import AboutHeroCard from "./Aboutus/AboutHeroCard";
@@ -9,14 +7,10 @@ import AboutStats from "./Aboutus/AboutStats";
 
 export default function AboutUs() {
   return (
-    <section id="about" className="relative min-h-screen w-full overflow-hidden bg-[#020617] text-white px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+    <section id="about" className="relative min-h-screen w-full overflow-hidden bg-[#020617] text-white px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       <AboutBackground />
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.2 }}
+      <div
         className="relative z-10 max-w-7xl mx-auto"
       >
         <AboutHeader />
@@ -27,7 +21,7 @@ export default function AboutUs() {
         </div>
 
         <AboutStats />
-      </motion.div>
+      </div>
     </section>
   );
 }

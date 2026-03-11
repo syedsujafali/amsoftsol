@@ -23,40 +23,21 @@ const HeroContent = ({
     stats,
 }: HeroContentProps) => {
     return (
-        <m.div
-            ref={leftContentRef}
-            initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-            animate={
-                isMobile
-                    ? { opacity: 1, scale: 1, x: 0, y: 0, rotate: 0, filter: "blur(0px)" }
-                    : {
-                        opacity: isThrowing ? 1 : 0,
-                        scale: isThrowing ? [0.2, 1.08, 0.98, 1] : 0,
-                        x: isThrowing ? [throwVector.x, 20, -6, 0] : throwVector.x,
-                        y: isThrowing ? [throwVector.y, -14, 6, 0] : throwVector.y,
-                        rotate: isThrowing ? [-8, 2, -1, 0] : -8,
-                        filter: isThrowing ? ["blur(10px)", "blur(0px)"] : "blur(10px)",
-                    }
-            }
-            transition={{
-                duration: isIntroSkipped ? 0.4 : 1.25,
-                ease: [0.16, 1, 0.3, 1],
-                opacity: { duration: isIntroSkipped ? 0.2 : 0.25 },
-            }}
-            className="flex-1 text-center lg:text-left pointer-events-auto w-full max-md:!opacity-100 max-md:!transform-none max-md:!filter-none max-md:!transition-none"
+        <div
+            ref={leftContentRef as React.RefObject<HTMLDivElement>}
+            className={`flex-1 text-center lg:text-left pointer-events-auto w-full max-md:!animation-none ${isThrowing 
+                ? (isMobile ? '' : isIntroSkipped ? 'animate-throw-in-hero-skip' : 'animate-throw-in-hero')
+                : 'opacity-0'
+                }`}
         >
-            <m.div
-                initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-                animate={isMobile ? { opacity: 1, y: 0 } : { opacity: isThrowing ? 1 : 0, y: isThrowing ? 0 : -20 }}
-                className="inline-flex items-center gap-3 px-4 sm:px-5 py-2 mb-7 sm:mb-8 text-xs sm:text-sm font-medium text-blue-400 rounded-full bg-blue-500/10 border border-blue-400/30"
-            >
+            <div className="inline-flex items-center gap-3 px-4 sm:px-5 py-2 mb-7 sm:mb-8 text-xs sm:text-sm font-medium text-blue-400 rounded-full bg-blue-500/10 border border-blue-400/30">
                 <m.div
                     animate={{ opacity: [0.6, 1, 0.6], scale: [1, 1.2, 1] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]"
                 />
                 Leading Web Development Company
-            </m.div>
+            </div>
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mt-4 sm:mt-6 lg:mt-8 mb-5 sm:mb-6 lg:mb-8 leading-[1.12] tracking-tight relative">
                 We Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">Digital Experiences</span>
@@ -72,21 +53,18 @@ const HeroContent = ({
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-8 sm:gap-10">
                 {stats.map((stat, i) => (
-                    <m.div
+                    <div
                         key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: isThrowing ? i * 0.2 : 0 }}
-                        className="flex flex-col items-center lg:items-start max-md:!opacity-100 max-md:!translate-y-0 max-md:!transition-none"
+                        className="flex flex-col items-center lg:items-start"
                     >
                         <span className="text-2xl sm:text-3xl md:text-4xl text-blue-400 font-black tracking-tighter drop-shadow-[0_0_10px_rgba(96,165,250,0.5)]">
                             <Counter value={stat.number} />
                         </span>
                         <span className="text-xs sm:text-sm text-gray-300">{stat.label}</span>
-                    </m.div>
+                    </div>
                 ))}
             </div>
-        </m.div>
+        </div>
     );
 };
 

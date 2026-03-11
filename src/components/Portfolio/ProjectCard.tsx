@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion, type Variants } from "framer-motion";
 import { FiExternalLink } from "react-icons/fi";
 import { tagColor } from "./constants";
 
@@ -28,21 +27,13 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
     return (
-        <motion.div
-            variants={cardVariants}
-            whileHover={{
-                y: -12,
-                scale: 1.02,
-                transition: { type: "spring", stiffness: 400, damping: 25 }
-            }}
+        <div
             className="group relative flex flex-col rounded-2xl overflow-hidden bg-[#0d1526] border border-white/10 transition-[border-color,box-shadow] duration-500 hover:border-blue-500/50 hover:shadow-[0_20px_50px_rgba(59,130,246,0.15)]"
         >
             <div className="relative w-full h-44 overflow-hidden bg-slate-800/60">
-                <motion.img
+                <img
                     src={project.image}
                     alt={project.title}
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
                     className="w-full h-full object-cover object-top"
                     onError={(e) => {
                         (e.target as HTMLImageElement).src =
@@ -51,16 +42,14 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                 />
 
                 <div className="absolute inset-0 flex items-center justify-center bg-blue-600/0 group-hover:bg-blue-600/10 transition-all duration-500">
-                    <motion.a
+                    <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        initial={{ opacity: 0, scale: 0.7 }}
-                        whileHover={{ scale: 1.15 }}
                         className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full p-3 text-white"
                     >
                         <FiExternalLink size={18} />
-                    </motion.a>
+                    </a>
                 </div>
             </div>
 
@@ -84,7 +73,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                     ))}
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 };
 

@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-
 const BlogBackground = () => {
     const particles = [
         { w: 2, h: 2, top: "8%", left: "10%", dur: 7, del: 0 },
@@ -18,9 +16,7 @@ const BlogBackground = () => {
     return (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-[#020617] via-[#0a1628] to-[#020617]" />
-            <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+            <div
                 className="absolute inset-0 flex items-center justify-center"
             >
                 <div
@@ -29,35 +25,25 @@ const BlogBackground = () => {
                         background: "conic-gradient(from 0deg, transparent 0deg, #3b82f6 80deg, transparent 160deg, #06b6d4 230deg, transparent 300deg, #8b5cf6 350deg, transparent 360deg)",
                     }}
                 />
-            </motion.div>
+            </div>
 
-            <motion.div
-                animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
-                transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+            <div
                 className="absolute -top-24 -left-16 w-[440px] h-[440px] bg-blue-600/10 rounded-full blur-[100px]"
             />
-            <motion.div
-                animate={{ scale: [1.1, 1, 1.1], opacity: [0.08, 0.18, 0.08] }}
-                transition={{ duration: 30, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+            <div
                 className="absolute -bottom-24 -right-16 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[120px]"
             />
-            <motion.div
-                animate={{ scale: [1, 1.1, 1], opacity: [0.03, 0.1, 0.03] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 7 }}
+            <div
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] bg-cyan-500/5 rounded-full blur-[100px]"
             />
 
-            <motion.div
-                animate={{ y: ["-5%", "110%"] }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear", delay: 2 }}
+            <div
                 className="absolute left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/25 to-transparent"
             />
 
             {particles.map((p, i) => (
-                <motion.div
+                <div
                     key={i}
-                    animate={{ opacity: [0, 1, 0], scale: [0.5, 1.2, 0.5] }}
-                    transition={{ duration: p.dur, repeat: Infinity, ease: "easeInOut", delay: p.del }}
                     className="absolute rounded-full bg-blue-300"
                     style={{ width: p.w, height: p.h, top: p.top, left: p.left }}
                 />

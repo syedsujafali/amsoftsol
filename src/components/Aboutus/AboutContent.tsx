@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { FaEye, FaFlag } from "react-icons/fa";
 
 const AboutContent = () => {
@@ -30,11 +29,7 @@ const AboutContent = () => {
     ];
 
     return (
-        <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.3 }}
+        <div
         >
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 transition-all duration-500 hover:drop-shadow-[0_0_20px_rgba(59,130,246,0.6)] hover:scale-105 transform inline-block">
                 Designing & Developing <span className="text-blue-500">Impactful Web <br className="hidden sm:block" /> Experiences</span>
@@ -61,7 +56,7 @@ const AboutContent = () => {
                     </div>
                 ))}
             </div>
-        </motion.div>
+        </div>
     );
 };
 

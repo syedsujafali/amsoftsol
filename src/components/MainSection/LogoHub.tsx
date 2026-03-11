@@ -97,36 +97,43 @@ const LogoHub = ({
 
                 <m.div
                     ref={hubRef}
-                    className="relative z-10 flex items-center justify-center max-sm:opacity-100 max-sm:transform-none"
+                    className="relative z-10 flex items-center justify-center"
+                    initial={{ opacity: 0, scale: 0.5 }}
                     animate={
                         isMobile
-                            ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 }
+                            ? { x: 0, y: 0, scale: 1, opacity: 1 }
                             : {
-                                opacity: 1,
-                                x: introPhase === "logoOnly" ? offsets.x : 0,
-                                y: introPhase === "logoOnly" ? offsets.y : 0,
-                                rotate: introPhase === "spinning" ? 3600 : 0,
+                                x: (introPhase === "logoOnly" || introPhase === "spinning") ? offsets.x : 0,
+                                y: (introPhase === "logoOnly" || introPhase === "spinning") ? offsets.y : 0,
                                 scale: 1,
+                                opacity: 1,
                             }
                     }
                     transition={{
-                        x: { duration: isIntroSkipped ? 0.4 : 1.15, ease: [0.16, 1, 0.3, 1] },
-                        y: { duration: isIntroSkipped ? 0.4 : 1.15, ease: [0.16, 1, 0.3, 1] },
-                        rotate: { duration: isIntroSkipped ? 0.4 : 1.2, ease: "circOut" },
-                        opacity: { duration: 0.3 },
+                        x: { duration: isIntroSkipped ? 0.3 : 1.2, ease: [0.16, 1, 0.3, 1] },
+                        y: { duration: isIntroSkipped ? 0.3 : 1.2, ease: [0.16, 1, 0.3, 1] },
+                        scale: { duration: 0.8 },
+                        opacity: { duration: 0.6 }
                     }}
                 >
-                    <Image
-                        src="/logo.png"
-                        alt="AM Logo"
-                        width={64}
-                        height={64}
-                        className="relative z-10 w-14 h-14 lg:w-16 lg:h-16 object-contain drop-shadow-[0_0_18px_rgba(255,255,255,0.35)]"
-                        priority
-                    />
+                    <m.div
+                        animate={introPhase === "spinning" ? {} : { rotate: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className={introPhase === "spinning" ? "animate-rotate-logo relative z-50 flex items-center justify-center" : "relative z-50 flex items-center justify-center"}
+                    >
+                        <Image
+                            src="/logo.png"
+                            alt="AM Logo"
+                            width={120}
+                            height={120}
+                            className="w-20 h-20 lg:w-24 lg:h-24 object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.8)] filter brightness-110"
+                            priority
+                            unoptimized
+                        />
+                    </m.div>
                 </m.div>
             </m.div>
-        </div>
+        </div >
     );
 };
 

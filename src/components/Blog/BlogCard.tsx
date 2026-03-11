@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { FiCalendar, FiClock, FiArrowRight, FiUser } from "react-icons/fi";
 
 interface BlogCardProps {
@@ -11,12 +10,7 @@ interface BlogCardProps {
 
 const BlogCard = ({ post, index }: BlogCardProps) => {
     return (
-        <motion.article
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-            whileHover={{ y: -8, scale: 1.02 }}
+        <article
             style={{ willChange: "transform" }}
             className="group relative flex flex-col rounded-2xl overflow-hidden bg-[#0d1526] border border-white/8 cursor-pointer"
         >
@@ -72,13 +66,13 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
                             Read More
                             <span className="absolute bottom-0 left-0 w-0 h-px bg-blue-400 transition-all duration-300 group-hover/btn:w-full" />
                         </span>
-                        <motion.span whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                        <span>
                             <FiArrowRight size={14} />
-                        </motion.span>
+                        </span>
                     </div>
                 </div>
             </div>
-        </motion.article>
+        </article>
     );
 };
 

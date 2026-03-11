@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { FiPhone, FiMail, FiMapPin, FiClock } from "react-icons/fi";
 
 const ContactInfo = () => {
@@ -31,9 +30,8 @@ const ContactInfo = () => {
     return (
         <div className="space-y-6">
             {contactItems.map((item, index) => (
-                <motion.div
+                <div
                     key={index}
-                    whileHover={{ y: -6 }}
                     className="group flex gap-4 p-6 rounded-2xl bg-[#0d1526] border border-white/10 transition-all duration-500 hover:border-blue-500/40 hover:shadow-[0_0_35px_rgba(59,130,246,0.2)]"
                 >
                     <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 text-xl transition-all duration-500 group-hover:scale-110 group-hover:bg-blue-500/20">
@@ -44,7 +42,7 @@ const ContactInfo = () => {
                         <h4 className="font-semibold mb-1">{item.title}</h4>
                         <p className="text-gray-400 text-sm">{item.text}</p>
                     </div>
-                </motion.div>
+                </div>
             ))}
         </div>
     );

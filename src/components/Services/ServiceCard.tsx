@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { m } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 
 interface ServiceCardProps {
@@ -18,16 +17,7 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ index, service }: ServiceCardProps) => {
     return (
-        <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, ease: "easeOut" }}
-            whileHover={{
-                y: -8,
-                scale: 1.03,
-                transition: { type: "spring", stiffness: 160, damping: 18, mass: 0.6 },
-            }}
+        <div
             className="group relative bg-slate-900/50 border border-white/5 rounded-2xl p-6 sm:p-7 lg:p-8 hover:border-blue-500/30 transition-all duration-500 ease-out overflow-hidden flex flex-col h-full"
         >
             <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -66,7 +56,7 @@ const ServiceCard = ({ index, service }: ServiceCardProps) => {
             >
                 Learn More <FaArrowRight className="ml-2 w-3 h-3" />
             </a>
-        </m.div>
+        </div>
     );
 };
 

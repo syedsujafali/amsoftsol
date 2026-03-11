@@ -20,6 +20,10 @@ const BackgroundHighlight = () => {
     const lastMouse = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
+        // Set initial position to screen center after mount (client-only)
+        mouseX.set(window.innerWidth / 2);
+        mouseY.set(window.innerHeight / 2);
+
         const isDesktop = window.matchMedia("(min-width: 768px)").matches;
         if (!isDesktop) return;
 
