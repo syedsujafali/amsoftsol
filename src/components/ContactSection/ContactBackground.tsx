@@ -15,7 +15,7 @@ const ContactBackground = () => {
 
     return (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#020617] via-[#0a1628] to-[#020617]" />
+            <div className="absolute inset-0 bg-linear-to-br from-[#020617] via-[#0a1628] to-[#020617]" />
             <div
                 className="absolute inset-0 flex items-center justify-center"
                 style={{ willChange: "transform" }}
@@ -29,20 +29,20 @@ const ContactBackground = () => {
             </div>
 
             <div
-                className="absolute -top-24 -left-16 w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-[100px]"
+                className="absolute -top-24 -left-16 w-125 h-125 bg-blue-600/15 rounded-full blur-[100px]"
                 style={{ willChange: "transform, opacity" }}
             />
             <div
-                className="absolute -bottom-24 -right-16 w-[560px] h-[560px] bg-cyan-500/10 rounded-full blur-[120px]"
+                className="absolute -bottom-24 -right-16 w-140 h-140 bg-cyan-500/10 rounded-full blur-[120px]"
                 style={{ willChange: "transform, opacity" }}
             />
             <div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[130px]"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-violet-600/10 rounded-full blur-[130px]"
                 style={{ willChange: "transform, opacity" }}
             />
 
             <div
-                className="absolute left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/20 to-transparent"
+                className="absolute left-0 w-full h-px bg-linear-to-r from-transparent via-blue-400/20 to-transparent"
                 style={{ willChange: "transform" }}
             />
 
