@@ -28,7 +28,7 @@ const Topbar = () => {
             </span>
           </a>
 
-          <span className="h-4 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent hidden sm:block"></span>
+          <span className="h-4 w-px bg-linear-to-b from-transparent via-gray-300 to-transparent hidden sm:block"></span>
 
           {/* Phone */}
           <a
