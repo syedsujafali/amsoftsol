@@ -26,8 +26,7 @@ const FooterContact = () => {
                     <FiMail className="text-blue-400" />
 
                     <p>info@amsoftwaresolution.com</p>
-=======
-57ffb9877be9499803c45070f1b08325ad463347
+
                 </div>
             </div>
         </div>
