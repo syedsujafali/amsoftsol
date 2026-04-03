@@ -4,6 +4,7 @@ import AboutHeader from "./Aboutus/AboutHeader";
 import AboutHeroCard from "./Aboutus/AboutHeroCard";
 import AboutContent from "./Aboutus/AboutContent";
 import AboutStats from "./Aboutus/AboutStats";
+import ScrollReveal from "./ScrollReveal";
 
 export default function AboutUs() {
   return (
@@ -13,14 +14,16 @@ export default function AboutUs() {
       <div
         className="relative z-10 max-w-7xl mx-auto"
       >
-        <AboutHeader />
+        <ScrollReveal>
+          <AboutHeader />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <AboutHeroCard />
-          <AboutContent />
-        </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <AboutHeroCard />
+            <AboutContent />
+          </div>
 
-        <AboutStats />
+          <AboutStats />
+        </ScrollReveal>
       </div>
     </section>
   );

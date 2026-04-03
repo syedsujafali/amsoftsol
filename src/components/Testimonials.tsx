@@ -6,6 +6,7 @@ import TestimonialsBackground from "./Testimonials/TestimonialsBackground";
 import TestimonialsHeader from "./Testimonials/TestimonialsHeader";
 import TestimonialSlide from "./Testimonials/TestimonialSlide";
 import TestimonialsNavigation from "./Testimonials/TestimonialsNavigation";
+import ScrollReveal from "./ScrollReveal";
 
 export default function Testimonials() {
     const [index, setIndex] = useState(0);
@@ -39,9 +40,11 @@ export default function Testimonials() {
                 className="relative z-10 max-w-4xl mx-auto"
                 ref={ref}
             >
-                <TestimonialsHeader />
-                <TestimonialSlide current={current} dir={dir} />
-                <TestimonialsNavigation index={index} total={testimonials.length} go={go} />
+                <ScrollReveal delay={0.1}>
+                    <TestimonialsHeader />
+                    <TestimonialSlide current={current} dir={dir} />
+                    <TestimonialsNavigation index={index} total={testimonials.length} go={go} />
+                </ScrollReveal>
             </div>
         </section>
     );

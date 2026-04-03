@@ -4,54 +4,107 @@ import React, { useState, useRef, useEffect } from "react";
 import { FiSend, FiChevronDown, FiCheck } from "react-icons/fi";
 
 const ContactForm = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSent, setIsSent] = useState(false);
+    const [error, setError] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const form = e.currentTarget as HTMLFormElement;
+        
+        setIsSubmitting(true);
+        setError(false);
+
+        const formData = new FormData(form);
+        const data = {
+            name: formData.get("name"),
+            email: formData.get("email"),
+            phone: formData.get("phone"),
+            subject: formData.get("subject"),
+            message: formData.get("message"),
+        };
+
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                setIsSubmitting(false);
+                setIsSent(true);
+                form.reset();
+                setTimeout(() => setIsSent(false), 5000);
+            } else {
+                throw new Error("Failed to send");
+            }
+        } catch (err) {
+            setIsSubmitting(false);
+            setError(true);
+        }
+    };
+
     return (
-        <div
-            className="p-8 rounded-2xl bg-[#0d1526] border border-white/10"
-        >
-            <form className="space-y-6">
+        <div className="p-8 rounded-2xl bg-[#0d1526] border border-white/10">
+            <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
-                    <Input label="Full Name *" placeholder="Your name" />
-                    <Input label="Email Address *" placeholder="your@example.com" />
+                    <Input name="name" label="Full Name *" placeholder="Your name" required />
+                    <Input name="email" label="Email Address *" placeholder="your@example.com" type="email" required />
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
-                    <Input label="Phone Number" placeholder="+91 12 3456 7890" />
-                    <Select />
+                    <Input name="phone" label="Phone Number" placeholder="+91 12 3456 7890" />
+                    <Select name="subject" reset={isSent} />
                 </div>
 
-                <Textarea />
+                <Textarea name="message" required />
 
-                <button
-                    type="button"
-                    className="group relative inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-semibold text-white border border-blue-500/40 bg-blue-600/20 transition-all duration-500 hover:bg-blue-600 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
-                >
-                    Send Message
-                    <FiSend className="group-hover:translate-x-1 transition-transform duration-300" />
-                </button>
+                <div className="flex items-center gap-4">
+                    <button
+                        type="submit"
+                        disabled={isSubmitting || isSent}
+                        className={`group relative inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-semibold text-white border transition-all duration-500 ${isSent ? 'border-green-500/40 bg-green-600/20 text-green-400' : 'border-blue-500/40 bg-blue-600/20 hover:bg-blue-600 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]'} disabled:opacity-70 disabled:cursor-not-allowed`}
+                    >
+                        {isSubmitting ? "Sending..." : isSent ? "Message Sent!" : "Send Message"}
+                        {!isSubmitting && !isSent && <FiSend className="group-hover:translate-x-1 transition-transform duration-300" />}
+                        {isSent && <FiCheck />}
+                    </button>
+                    {isSent && <span className="text-green-400 text-sm animate-fade-in">We'll get back to you shortly!</span>}
+                    {error && <span className="text-red-400 text-sm animate-fade-in">Failed to send. Please try again.</span>}
+                </div>
             </form>
         </div>
     );
 };
 
 /* Reusable Input */
-function Input({ label, placeholder }: any) {
+function Input({ label, placeholder, type = "text", required, name }: any) {
     return (
         <div>
             <label className="block mb-2 text-sm text-gray-300">{label}</label>
             <input
-                type="text"
+                type={type}
+                name={name}
                 placeholder={placeholder}
+                required={required}
                 className="w-full px-4 py-3 rounded-xl bg-[#0f1a2f] border border-white/10 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-300"
             />
         </div>
     );
 }
 
-function Select() {
+function Select({ reset, name }: { reset?: boolean, name?: string }) {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState("Select a subject");
     const options = ["Web Development", "UI/UX Design", "Consultation", "Other"];
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (reset) {
+            setSelected("Select a subject");
+        }
+    }, [reset]);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -66,6 +119,7 @@ function Select() {
     return (
         <div className="relative" ref={dropdownRef}>
             <label className="block mb-2 text-sm text-gray-300">Subject</label>
+            <input type="hidden" name={name} value={selected === "Select a subject" ? "" : selected} />
             <div 
                 className={`w-full px-4 py-3 rounded-xl bg-[#0f1a2f] border ${isOpen ? 'border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.2)] bg-[#15233c]' : 'border-white/10 hover:border-blue-500/50 hover:bg-[#15233c]'} text-sm text-white cursor-pointer transition-all duration-300 flex items-center justify-between group`}
                 onClick={() => setIsOpen(!isOpen)}
@@ -99,7 +153,7 @@ function Select() {
     );
 }
 
-function Textarea() {
+function Textarea({ required, name }: any) {
     return (
         <div>
             <label className="block mb-2 text-sm text-gray-300">
@@ -107,6 +161,8 @@ function Textarea() {
             </label>
             <textarea
                 rows={5}
+                required={required}
+                name={name}
                 placeholder="Tell us about your project..."
                 className="w-full px-4 py-3 rounded-xl bg-[#0f1a2f] border border-white/10 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-300"
             />

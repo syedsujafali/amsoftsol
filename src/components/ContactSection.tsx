@@ -3,6 +3,7 @@ import ContactBackground from "./ContactSection/ContactBackground";
 import ContactHeader from "./ContactSection/ContactHeader";
 import ContactInfo from "./ContactSection/ContactInfo";
 import ContactForm from "./ContactSection/ContactForm";
+import ScrollReveal from "./ScrollReveal";
 
 export default function ContactSection() {
     return (
@@ -12,11 +13,13 @@ export default function ContactSection() {
             <div
                 className="relative z-10 max-w-7xl mx-auto"
             >
-                <ContactHeader />
-                <div className="grid lg:grid-cols-2 gap-10">
-                    <ContactInfo />
-                    <ContactForm />
-                </div>
+                <ScrollReveal delay={0.1}>
+                    <ContactHeader />
+                    <div className="grid lg:grid-cols-2 gap-10">
+                        <ContactInfo />
+                        <ContactForm />
+                    </div>
+                </ScrollReveal>
             </div>
         </section>
     );
