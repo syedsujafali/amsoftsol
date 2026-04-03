@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { FaArrowRight } from "react-icons/fa";
 
 interface ServiceCardProps {
     index: number;
@@ -49,13 +48,6 @@ const ServiceCard = ({ index, service }: ServiceCardProps) => {
                     </li>
                 ))}
             </ul>
-
-            <a
-                href="#"
-                className={`relative z-10 mt-auto inline-flex items-center text-sm font-semibold ${service.color} hover:brightness-110 transition-all duration-500 group-hover:translate-x-1`}
-            >
-                Learn More <FaArrowRight className="ml-2 w-3 h-3" />
-            </a>
         </div>
     );
 };

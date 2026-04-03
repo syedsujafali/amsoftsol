@@ -17,17 +17,15 @@ const FooterContact = () => {
                     </p>
                 </div>
 
-                <div className="flex gap-3 items-center">
-                    <FiPhone className="text-blue-400" />
+                <a href="tel:+914049541452" className="flex gap-3 items-center hover:text-blue-400 transition-colors duration-300 group cursor-pointer">
+                    <FiPhone className="text-blue-400 group-hover:scale-110 transition-transform duration-300" />
                     <p>+91 40 4954 1452</p>
-                </div>
+                </a>
 
-                <div className="flex gap-3 items-center">
-                    <FiMail className="text-blue-400" />
-
+                <a href="mailto:info@amsoftwaresolution.com" className="flex gap-3 items-center hover:text-blue-400 transition-colors duration-300 group cursor-pointer">
+                    <FiMail className="text-blue-400 group-hover:scale-110 transition-transform duration-300" />
                     <p>info@amsoftwaresolution.com</p>
-
-                </div>
+                </a>
             </div>
         </div>
     );

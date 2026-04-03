@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { FaQuoteRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Stars from "./Stars";
@@ -13,11 +13,16 @@ interface TestimonialSlideProps {
 
 const TestimonialSlide = ({ current, dir }: TestimonialSlideProps) => {
     const variants = makeVariants(dir);
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const maxLength = 160;
+    const isLongQuote = current.quote.length > maxLength;
+    const displayText = isExpanded ? current.quote : (isLongQuote ? `${current.quote.substring(0, maxLength)}...` : current.quote);
 
     return (
         <div className="relative">
             <div
-                className="relative rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl overflow-hidden min-h-[260px] sm:min-h-[240px] p-8 sm:p-10 group"
+                className="relative rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl overflow-hidden min-h-[260px] sm:min-h-[240px] p-8 sm:p-10 group flex flex-col"
             >
                 <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                     style={{ boxShadow: "inset 0 0 0 1px rgba(59,130,246,0.35), 0 0 60px rgba(59,130,246,0.18)" }}
@@ -37,6 +42,7 @@ const TestimonialSlide = ({ current, dir }: TestimonialSlideProps) => {
                         x: { type: "spring", stiffness: 300, damping: 30 },
                         opacity: { duration: 0.2 }
                     }}
+                    className="flex flex-col h-full"
                 >
                     <div className="mb-6">
                         <div
@@ -46,11 +52,21 @@ const TestimonialSlide = ({ current, dir }: TestimonialSlideProps) => {
                         </div>
                     </div>
 
-                    <p className="text-base sm:text-lg text-gray-100 leading-relaxed mb-8 max-w-3xl">
-                        &ldquo;{current.quote}&rdquo;
+                    <p className="text-base sm:text-lg text-gray-100 leading-relaxed mb-4 max-w-3xl transition-all duration-500">
+                        &ldquo;{displayText}&rdquo;
                     </p>
+                    
+                    {isLongQuote && (
+                        <button
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            className="text-sm font-bold text-blue-400 mb-8 hover:text-blue-300 hover:tracking-wide transition-all duration-300 inline-flex items-center self-start group/btn"
+                        >
+                            {isExpanded ? "Read less" : "Read more"}
+                        </button>
+                    )}
+                    {!isLongQuote && <div className="mb-8" />}
 
-                    <div className="flex items-center justify-between flex-wrap gap-4">
+                    <div className="flex items-center justify-between flex-wrap gap-4 mt-auto">
                         <div className="flex items-center gap-4">
                             <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${current.color} flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-lg transition-transform duration-300 group-hover:scale-110`}>
                                 {current.initials}

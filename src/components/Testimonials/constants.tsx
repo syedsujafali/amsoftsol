@@ -1,7 +1,7 @@
 export const testimonials = [
     {
         id: 1,
-        quote: "Our website traffic and engagement improved significantly after their mobile responsiveness and UI/UX improvements. The site now feels fast, clean, and easy to use on phones and tablets.",
+        quote: "Our website traffic and engagement improved significantly after their mobile responsiveness and UI/UX improvements. The site now feels fast, clean, and easy to use on phones and tablets. We saw a 40% increase in user retention within the first month alone, and the feedback from our customers has been overwhelmingly positive. The support team is also fantastic.",
         name: "Neha Sharma",
         role: "Marketing Head, UrbanMart",
         initials: "NS",
@@ -10,7 +10,7 @@ export const testimonials = [
     },
     {
         id: 2,
-        quote: "AM Software Solution delivered a stunning redesign of our dental clinic website. Patient inquiries increased noticeably after launch. Professional, on-time, and highly skilled team.",
+        quote: "AM Software Solution delivered a stunning redesign of our dental clinic website. Patient inquiries increased noticeably after launch. Professional, on-time, and highly skilled team. They took the time to understand exactly what our patients needed and built a booking system that is both incredibly secure and extremely easy to navigate.",
         name: "Dr. Arjun Menon",
         role: "Founder, Simply Smilez Dental",
         initials: "AM",
@@ -19,7 +19,7 @@ export const testimonials = [
     },
     {
         id: 3,
-        quote: "They built our logistics platform from scratch with a clean dashboard and mobile-ready design. Communication was smooth throughout and the final product exceeded our expectations.",
+        quote: "They built our logistics platform from scratch with a clean dashboard and mobile-ready design. Communication was smooth throughout and the final product exceeded our expectations. The real-time tracking feature they implemented works flawlessly and has saved our dispatch team countless hours of manual data entry every single day.",
         name: "Ramesh Patil",
         role: "Director, Shiva Roadlines",
         initials: "RP",
@@ -28,7 +28,7 @@ export const testimonials = [
     },
     {
         id: 4,
-        quote: "The Turbo Shop website now truly represents our brand. Bold visuals, smooth navigation, and great SEO. We've started getting leads directly through the website for the first time.",
+        quote: "The Turbo Shop website now truly represents our brand. Bold visuals, smooth navigation, and great SEO. We've started getting leads directly through the website for the first time. The transition from our old legacy system was seamless, and their post-launch support has been instrumental in helping us scale our e-commerce operations rapidly.",
         name: "Sanjay Kulkarni",
         role: "Owner, Turbo Shop",
         initials: "SK",
@@ -37,7 +37,7 @@ export const testimonials = [
     },
     {
         id: 5,
-        quote: "Our furniture website looks premium and converts better than before. The team understood our brand vision instantly and translated it into a beautiful, functional site.",
+        quote: "Our furniture website looks premium and converts better than before. The team understood our brand vision instantly and translated it into a beautiful, functional site. Their attention to minor design details, animations, and micro-interactions makes the browsing experience feel highly luxurious and tailored specifically for our high-end target audience.",
         name: "Priya Nair",
         role: "CEO, Aldo Modular Furniture",
         initials: "PN",
@@ -46,7 +46,7 @@ export const testimonials = [
     },
     {
         id: 6,
-        quote: "I was amazed by the speed of delivery and the level of design quality. The new website brought us far more visibility. We get compliments from clients regularly about how professional it looks.",
+        quote: "I was amazed by the speed of delivery and the level of design quality. The new website brought us far more visibility. We get compliments from clients regularly about how professional it looks. To top it off, the backend CMS they constructed for us makes updating our portfolio a breeze, allowing us to showcase our newest projects instantly.",
         name: "Vikram Joshi",
         role: "Managing Director, Taskforce Interiors",
         initials: "VJ",

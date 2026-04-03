@@ -43,7 +43,7 @@ const HeroButtons = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                href="/portfolio"
+                href="/services"
                 className="
           w-full sm:w-auto
           px-6 sm:px-8 py-3 sm:py-4 
@@ -54,7 +54,7 @@ const HeroButtons = () => {
           text-center
         "
             >
-                View Our Work
+                Our Services
             </m.a>
         </m.div>
     );

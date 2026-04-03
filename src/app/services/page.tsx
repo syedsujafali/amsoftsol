@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function ServicesPage() {
     return (
-        <main className="pt-20">
+        <main className="pt-0">
             <Services />
         </main>
     );

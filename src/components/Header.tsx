@@ -22,8 +22,8 @@ export default function Header() {
     <>
       <header
         className={`w-full z-40 transition-all duration-300 bg-[#020617] ${scrolled
-          ? "bg-[#0A142F]/90 backdrop-blur-md shadow-lg border-b border-white/10 py-3"
-          : "py-4"
+          ? "bg-[#0A142F]/90 backdrop-blur-md shadow-lg border-b border-white/10 py-2"
+          : "py-2"
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">

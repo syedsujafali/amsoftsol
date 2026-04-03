@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FiCalendar, FiClock, FiArrowRight, FiUser } from "react-icons/fi";
+import { FiCalendar, FiClock } from "react-icons/fi";
 
 interface BlogCardProps {
     post: any;
@@ -22,7 +22,7 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
                 }}
             />
 
-            <div className="relative w-full h-52 overflow-hidden bg-slate-800/60 shrink-0">
+            <div className="relative w-full h-40 overflow-hidden bg-slate-800/60 shrink-0">
                 <img
                     src={post.image}
                     alt={post.title}
@@ -37,7 +37,7 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
                 </span>
             </div>
 
-            <div className="flex flex-col flex-1 p-5 gap-3">
+            <div className="flex flex-col flex-1 p-4 gap-2">
                 <div className="flex items-center gap-4 text-gray-500 text-xs">
                     <span className="flex items-center gap-1.5"><FiCalendar size={12} />{post.date}</span>
                     <span className="flex items-center gap-1.5"><FiClock size={12} />{post.readTime}</span>
@@ -50,27 +50,6 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
                 <p className="text-gray-400 text-sm leading-relaxed flex-1">
                     {post.excerpt}
                 </p>
-
-                <div className="h-px bg-white/5" />
-
-                <div className="flex items-center justify-between pt-1">
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
-                        <div className="w-7 h-7 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
-                            <FiUser size={13} />
-                        </div>
-                        <span>{post.author}</span>
-                    </div>
-
-                    <div className="group/btn flex items-center gap-1 text-blue-400 text-sm font-medium">
-                        <span className="relative">
-                            Read More
-                            <span className="absolute bottom-0 left-0 w-0 h-px bg-blue-400 transition-all duration-300 group-hover/btn:w-full" />
-                        </span>
-                        <span>
-                            <FiArrowRight size={14} />
-                        </span>
-                    </div>
-                </div>
             </div>
         </article>
     );

@@ -47,25 +47,25 @@ const Topbar = () => {
         {/* Right: Social Icons */}
         <div className="flex items-center gap-3">
           <SocialLink
-            href="#"
+            href="https://www.facebook.com/"
             icon={<FaFacebookF size={14} />}
             color="bg-gradient-to-tr from-[#1877F2] to-[#3b5998]"
             shadow="hover:shadow-[#1877F2]/30"
           />
           <SocialLink
-            href="#"
+            href="https://www.x.com/"
             icon={<FaXTwitter size={14} />}
             color="bg-gradient-to-tr from-[#000000] to-[#333333]"
             shadow="hover:shadow-black/30"
           />
           <SocialLink
-            href="#"
+            href="https://www.linkedin.com/"
             icon={<FaLinkedinIn size={14} />}
             color="bg-gradient-to-tr from-[#0077b5] to-[#00a0dc]"
             shadow="hover:shadow-[#0077b5]/30"
           />
           <SocialLink
-            href="#"
+            href="https://www.instagram.com/"
             icon={<FaInstagram size={14} />}
             color="bg-gradient-to-tr from-[#833AB4] via-[#FD1D1D] to-[#FCAF45]"
             shadow="hover:shadow-[#FD1D1D]/30"
@@ -79,6 +79,8 @@ const Topbar = () => {
 const SocialLink = ({ href, icon, color, shadow }: { href: string; icon: React.ReactNode; color: string; shadow: string }) => (
   <a
     href={href}
+    target="_blank"
+    rel="noopener noreferrer"
     className={`
       relative group p-2 rounded-full text-white overflow-hidden
       ${color} ${shadow}

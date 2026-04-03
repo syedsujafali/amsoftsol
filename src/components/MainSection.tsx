@@ -47,12 +47,12 @@ const MainSection = () => {
       setThrowVector({ x: centerX - (leftRect.left + leftRect.width / 2), y: centerY - (leftRect.top + leftRect.height / 2) });
 
       setIntroPhase("logoOnly");
-      setTimeout(() => setIntroPhase("spinning"), 1000);
-      setTimeout(() => setIntroPhase("throwing"), 6000);
+      setTimeout(() => setIntroPhase("spinning"), 500);
+      setTimeout(() => setIntroPhase("throwing"), 2000);
       setTimeout(() => {
         setIntroPhase("done");
         sessionStorage.setItem("amsoft_intro_played", "true");
-      }, 7200);
+      }, 3200);
     };
     // Use a small timeout to ensure refs are fully ready and layout is stable
     const timer = setTimeout(measure, 150);
