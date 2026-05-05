@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 const BottomBar = () => {
     return (
@@ -9,12 +10,18 @@ const BottomBar = () => {
                 <p>© 2026 AM Software Solution. All rights reserved.</p>
 
                 <div className="flex gap-6">
-                    <span className="hover:text-blue-400 transition-colors duration-300 cursor-pointer">
+                    <Link 
+                        href="/privacy-policy"
+                        className="hover:text-blue-400 transition-colors duration-300 cursor-pointer"
+                    >
                         Privacy Policy
-                    </span>
-                    <span className="hover:text-blue-400 transition-colors duration-300 cursor-pointer">
+                    </Link>
+                    <Link 
+                        href="/terms-of-service"
+                        className="hover:text-blue-400 transition-colors duration-300 cursor-pointer"
+                    >
                         Terms of Service
-                    </span>
+                    </Link>
                 </div>
             </div>
         </div>
