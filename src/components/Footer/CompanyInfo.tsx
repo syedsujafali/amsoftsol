@@ -6,10 +6,10 @@ import { FaFacebookF, FaXTwitter, FaLinkedinIn, FaInstagram } from "react-icons/
 
 const CompanyInfo = () => {
     const socials = [
-        { Icon: FaFacebookF, href: "https://www.facebook.com/" },
+        { Icon: FaFacebookF, href: "https://www.facebook.com/AMsoftwaresolution" },
         { Icon: FaXTwitter, href: "https://www.x.com/" },
         { Icon: FaLinkedinIn, href: "https://www.linkedin.com/" },
-        { Icon: FaInstagram, href: "https://www.instagram.com/" }
+        { Icon: FaInstagram, href: "https://www.instagram.com/amsoftwaresolution01/" }
     ];
 
     return (

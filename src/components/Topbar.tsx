@@ -47,7 +47,7 @@ const Topbar = () => {
         {/* Right: Social Icons */}
         <div className="flex items-center gap-3">
           <SocialLink
-            href="https://www.facebook.com/"
+            href="https://www.facebook.com/AMsoftwaresolution"
             icon={<FaFacebookF size={14} />}
             color="bg-gradient-to-tr from-[#1877F2] to-[#3b5998]"
             shadow="hover:shadow-[#1877F2]/30"
@@ -65,7 +65,7 @@ const Topbar = () => {
             shadow="hover:shadow-[#0077b5]/30"
           />
           <SocialLink
-            href="https://www.instagram.com/"
+            href="https://www.instagram.com/amsoftwaresolution01/"
             icon={<FaInstagram size={14} />}
             color="bg-gradient-to-tr from-[#833AB4] via-[#FD1D1D] to-[#FCAF45]"
             shadow="hover:shadow-[#FD1D1D]/30"
