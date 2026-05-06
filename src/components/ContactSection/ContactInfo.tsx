@@ -14,8 +14,8 @@ const ContactInfo = () => {
         {
             icon: <FiMail />,
             title: "Email Us",
-            text: "info@amsoftware.com",
-            link: "mailto:info@amsoftware.com",
+            text: "info@amsoftwaresolution.com",
+            link: "mailto:info@amsoftwaresolution.com",
         },
         {
             icon: <FiMapPin />,

@@ -17,14 +17,14 @@ const Topbar = () => {
 
           {/* Email */}
           <a
-            href="mailto:info@amsoftware.com"
+            href="mailto:info@amsoftwaresolution.com"
             className="group flex items-center gap-2 cursor-pointer transition-colors duration-300"
           >
             <div className="p-1.5 rounded-full bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-blue-200">
               <FiMail className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
             </div>
             <span className="text-gray-600 font-medium group-hover:text-blue-700 transition-colors hidden sm:inline">
-              info@amsoftware.com
+              info@amsoftwaresolution.com
             </span>
           </a>
 
